@@ -120,8 +120,13 @@
   "footer": {
     "socials": {
       "x": "https://x.com/gliiv",
-      "github": "https://github.com/gliiv",
       "linkedin": "https://linkedin.com/company/gliiv"
     }
+  },
+  "interaction": {
+    "drilldown": false
+  },
+  "seo": {
+    "indexing": "all"
   }
 }
