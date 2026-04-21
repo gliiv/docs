@@ -24,39 +24,24 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Platform",
         "pages": [
           "product-overview",
           {
-            "group": "Getting started",
+            "group": "The Message Center",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Campaigns",
             "pages": [
               "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "essentials/navigation",
+              "essentials/personalization-with-placeholders",
+              "essentials/smart-scheduling-3-hour-rule",
+              "essentials/understanding-campaign-status"
             ]
           }
         ]
@@ -71,7 +56,7 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "SMS API",
             "pages": [
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
