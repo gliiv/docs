@@ -1,0 +1,19 @@
+---
+title: "Authentication"
+description: "Secure your API requests using API Keys."
+---
+
+The Gliiv API uses API keys to authenticate requests. You can view and manage your API keys in the **Developer Settings** of the Gliiv Dashboard.
+
+## Header Authentication
+
+All API requests must include the `x-api-key` header. Requests that do not include this header or use an invalid key will return a `401 Unauthorized` response.
+
+<ResponseField name="x-api-key" type="string" required>
+  Your secret API key.
+</ResponseField>
+
+### Example Header
+```http
+x-api-key: gliv_live_xxxxxxxxxxxxxxxx
+Content-Type: application/json

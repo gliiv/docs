@@ -40,6 +40,13 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "API Reference",
+        "pages": [
+          "authentication",
+          "send-sms"
+        ]
       }
     ]
   },
