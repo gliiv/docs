@@ -23,33 +23,19 @@
   "thumbnails": { "appearance": "light", "fonts": { "family": "Nunito Sans" } },
   "navigation": {
     "tabs": [
-        {
-          "tab": "Guides",
-          "groups": [
-            {
-              "group": "Introduction",
-              "pages": ["introduction", "quickstart"]
-            },
-            {
-              "group": "Campaign Management",
-              "pages": ["campaigns/manual-setup", "campaigns/scheduling"]
-            }
-          ]
-        },
-        {
-          "tab": "API Reference",
-          "groups": [
-            {
-              "group": "Getting Started",
-              "pages": ["api-reference/authentication"]
-            },
-            {
-              "group": "Messaging",
-              "pages": ["api-reference/send-sms"]
-            }
-          ]
-        }
-      ]
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
