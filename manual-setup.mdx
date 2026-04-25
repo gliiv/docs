@@ -1,0 +1,55 @@
+---
+title: "Manual Campaign Setup"
+description: "Launch or schedule bulk SMS campaigns directly from your dashboard."
+---
+
+Manual campaigns are the fastest way to send bulk messages without writing code. Our system is optimized to handle massive contact lists with high precision.
+
+## Preparing your Contact List
+
+Before uploading, ensure your file (CSV or Excel) is formatted correctly.
+
+* **Phone Numbers:** Must include the country code (e.g., `250...`).
+* **Placeholders:** You can include extra columns like `First_Name` or `Balance` to personalize your messages using `{{Variable}}` syntax.
+
+<Info>
+  **Pro Tip:** If your file is extremely large (e.g., 5 million rows), our ingestion engine will process it in the background using BullMQ, allowing you to continue using the dashboard while we prepare the queue.
+</Info>
+
+---
+
+## The Creation Workflow
+
+<Steps>
+  <Step title="Upload your File">
+    Navigate to **Campaigns > New Campaign**. Drag your CSV or Excel file into the upload zone. Gliiv will instantly begin validating the data format.
+  </Step>
+  <Step title="Mapping Attributes">
+    Match your file columns to Gliiv attributes. 
+    * **Recipient:** Map your phone number column.
+    * **Variables:** Map any custom columns you wish to use as placeholders in your message body.
+  </Step>
+  <Step title="Compose & Schedule">
+    Type your message in the editor. Below the message box, you have two options for timing:
+    * **Send Now:** Messages enter the queue immediately.
+    * **Schedule for Later:** Toggle the radio button to select a specific date and time.
+  </Step>
+  <Step title="Review & Launch">
+    Check the preview. Once ready, click **Launch Campaign**. 
+  </Step>
+</Steps>
+
+---
+
+## 📅 Campaign Scheduling
+
+If you aren't ready to send immediately, you can use the **Scheduling** feature.
+
+### How it Works
+When you check the **Schedule for Later** radio button, a date and time picker will appear.
+
+* **Lead Time:** Scheduled campaigns must be set for at least **3 hours from the current time**. This ensures our system has ample time to validate and stage large-scale data before the dispatch window opens.
+* **Timezone:** All campaigns are scheduled based on your account's local timezone settings.
+
+### Managing Scheduled Campaigns
+You can view, edit, or cancel a scheduled campaign from the **Campaigns** list view at any time before the scheduled dispatch time. Look for the **"Scheduled"** status badge.

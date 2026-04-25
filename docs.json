@@ -32,6 +32,12 @@
               "introduction",
               "quickstart"
             ]
+          },
+          {
+            "group": "Campaign Management",
+            "pages": [
+              "manual-setup"
+            ]
           }
         ]
       }
