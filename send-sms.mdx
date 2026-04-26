@@ -35,7 +35,7 @@ Include your `x-api-key` in the request header as described in the [Authenticati
 
 ```bash Curl
 curl --request POST \
-  --url [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send) \
+  --url https://api.gliiv.com/v1/messages/send \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: <your-api-key>' \
   --data '{
@@ -43,3 +43,6 @@ curl --request POST \
     "body": "Your Gliiv verification code is 1234",
     "senderId": "GLIIV"
   }'
+```
+
+</RequestExample>
