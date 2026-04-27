@@ -3,57 +3,72 @@ title: "Quickstart"
 description: "Start sending messages with Gliiv in under 5 minutes."
 ---
 
-Whether you are using the dashboard or our API, getting started with Gliiv is straightforward. Follow these steps to send your first message.
+To begin sending messages, you need an active account and an approved Sender. Follow these steps to get your first message moving.
 
-## 1. Set up your Account
-Before sending, you need to configure your sender identity:
-* Log in to the [Gliiv Dashboard](https://app.gliiv.com).
-* Navigate to **Settings > Sender IDs**.
-* Request or configure the Sender ID you will use to identify your messages.
+## 1. Create your Account
+
+Authenticate with the platform to access your dashboard and developer tools.
+
+<CardGroup cols={2}>
+  <Card title="Sign Up" icon="user-plus" href="https://www.gliiv.com/app/auth/signup">
+    Create an account via Email, Google, or GitHub.
+  </Card>
+  <Card title="Login" icon="log-in" href="https://app.gliiv.com">
+    Access your existing dashboard.
+  </Card>
+</CardGroup>
 
 ---
 
-## 2. Choose your Path
+## 2. Obtain an Approved Sender
 
-Identify which method works best for your current workflow:
+A **Sender** is the identity recipients see on their phones. These must be manually assigned to your account for security compliance.
+
+1.  **Check your status:** Visit the **Senders** tab in the dashboard.
+2.  **Request a new identity:** If your list is empty, reach out to us:
+    * **Online:** Use our [Contact Form](https://www.gliiv.com/contact).
+    * **In-Person:** Contact our team directly to discuss your requirements.
+
+---
+
+## 3. Choose your Path
+
+Once you have an approved identity in your **Senders** tab, choose your method:
 
 <Tabs>
   <Tab title="Dashboard (Manual)">
-    ### Launch a Test Campaign
-    1. Go to the **Campaigns** tab.
-    2. Click **Create New Campaign**.
-    3. Upload a sample CSV with your own phone number to test.
-    4. Compose your message and click **Send Now**.
+    ### Create a Campaign
+    1. Navigate to **Campaigns** and click the **Create Campaign** button.
+    2. Select your **Sender** name (e.g., "TEST") from the dropdown.
+    3. Type your **Message**.
+    4. Choose your **Recipient Input Method**:
+       * **Manual:** Paste numbers directly (one per line).
+       * **File Upload:** Upload a CSV or Excel file.
+    5. Click **Submit**.
     
-    [View full manual guide](/campaigns/manual-setup)
+    [Full Manual Setup Guide](/manual-setup)
   </Tab>
+
   <Tab title="API (Automated)">
-    ### Send a Test Request
-    1. Grab your key from **Developer Settings**.
-    2. Use the following curl command to send a single message:
+    ### Instant Dispatch
+    1. **Generate API Key:** Go to [API Settings](https://www.gliiv.com/app/settings/api-key). (Save it securely; it is shown only once).
+    2. **Get Sender ID:** Go to the **Senders** tab, click **Details** on your sender, and copy the hexadecimal ID.
 
     ```bash
-    curl -X POST [https://api.gliiv.com/v1/messages](https://api.gliiv.com/v1/messages) \
+    curl -X POST [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send) \
       -H "x-api-key: <your_api_key>" \
-      -H "Content-Type: ambulance/json" \
+      -H "Content-Type: application/json" \
       -d '{
-        "to": "+250780000000",
-        "body": "Hello from Gliiv API!"
+        "apiPhoneNumbers": ["+250700000000"],
+        "message": "Hello from Gliiv!",
+        "senderId": "69c905148f112344e98b6b94"
       }'
     ```
 
-    [View full API reference](/api-reference/authentication)
+    * **senderId:** This is the unique ID found in the Sender's details popup, not the display name.
+    * **Limit:** Maximum of **20 numbers** per API call.
+    * **Note:** API messages are sent instantly and do not support scheduling.
+
+    [Full API Reference](/authentication)
   </Tab>
 </Tabs>
-
----
-
-## 3. Monitor Delivery
-Once sent, head over to the **Analytics** page. You will see your message move through these stages:
-* **Pending:** In the processing queue.
-* **Sent:** Dispatched to the carrier.
-* **Delivered:** Successfully reached the recipient's device.
-
-<Info>
-  **Note on Scale:** If you are testing with our high-scale ingestion (5M+ rows), the analytics will update in real-time as the batches are processed.
-</Info>
