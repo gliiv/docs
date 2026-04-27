@@ -1,19 +1,22 @@
 ---
+
 title: "Send SMS"
-api: "POST https://api.gliiv.com/v1/messages/send"
+api: "POST [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send)"
 description: "Send high-priority single or bulk messages via the Gliiv gateway."
 ---
 
-The `/send` endpoint is the core of the Gliiv API. It is designed for high-throughput ingestion, allowing you to send messages to one or multiple recipients in a single request. 
+The `/send` endpoint allows you to programmatically dispatch messages to Rwandan mobile subscribers. 
 
-All requests are processed asynchronously to ensure minimal latency for your application.
+<Note>
+  **Requirement:** Before using this endpoint, you must have at least one approved **Sender ID** assigned to your account by the Gliiv administration team.
+</Note>
 
 ### Body Parameters
 
 <ParamField body="apiPhoneNumbers" type="string[]" required>
   An array of recipient phone numbers.
-  * **Format:** Supports E.164 (`+250...`), local (`07...`), or international formats.
-  * **Limit:** Maximum of **20 numbers** per individual API request for optimal performance.
+  * **Supported Formats:** Specifically supports Rwandan numbers in E.164 (`+250...`), international (`250...`), or local (`07...` / `7...`) formats.
+  * **Limit:** Maximum of **20 numbers** per individual API request.
 </ParamField>
 
 <ParamField body="message" type="string" required>
@@ -22,19 +25,22 @@ All requests are processed asynchronously to ensure minimal latency for your app
   * **Maximum:** 800 characters total.
 </ParamField>
 
-<ParamField body="senderId" type="string">
+<ParamField body="senderId" type="string" required>
   The unique ID of your approved Sender identity.
-  * **Note:** This is the internal MongoDB-style ID found in your dashboard (e.g., `69c905148f112344e98b6b94`). If omitted, your default Sender ID will be used.
+  
+  **How to obtain:** 1. Go to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
+  2. Click to preview the details of the specific sender you wish to use.
+  3. Copy the **Sender ID** using the provided copy button.
 </ParamField>
 
 ### Response Schema
 
 <ResponseField name="success" type="boolean">
-  Returns `true` if the message payload passed validation and was accepted into the Gliiv processing queue.
+  Returns `true` if the message payload passed validation and was accepted into the processing queue.
 </ResponseField>
 
 <ResponseField name="messageId" type="string">
-  A unique tracking ID assigned to this batch. Use this ID to query delivery reports via the status endpoint.
+  A unique tracking ID assigned to this batch.
 </ResponseField>
 
 <RequestExample>
@@ -43,7 +49,7 @@ All requests are processed asynchronously to ensure minimal latency for your app
 const axios = require('axios');
 
 const data = {
-  apiPhoneNumbers: ["+250700000000"],
+  apiPhoneNumbers: ["0780000000"],
   message: "Hello from Gliiv!",
   senderId: "69c905148f112344e98b6b94"
 };
@@ -70,7 +76,7 @@ import json
 url = "https://api.gliiv.com/v1/messages/send"
 
 payload = json.dumps({
-  "apiPhoneNumbers": ["+250700000000"],
+  "apiPhoneNumbers": ["0780000000"],
   "message": "Hello from Gliiv!",
   "senderId": "69c905148f112344e98b6b94"
 })
@@ -88,7 +94,7 @@ curl -X POST https://api.gliiv.com/v1/messages/send \
   -H "x-api-key: <your_api_key>" \
   -H "Content-Type: application/json" \
   -d '{
-    "apiPhoneNumbers": ["+250700000000"],
+    "apiPhoneNumbers": ["0780000000"],
     "message": "Hello from Gliiv!",
     "senderId": "69c905148f112344e98b6b94"
   }'
