@@ -55,7 +55,7 @@ Once you have an approved identity in your **Senders** tab, choose your method:
     2. **Get Sender ID:** Go to the **Senders** tab, click **Details** on your sender, and copy the hexadecimal ID.
 
     ```bash
-    curl -X POST [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send) \
+    curl -X POST https://api.gliiv.com/v1/messages/send \
       -H "x-api-key: <your_api_key>" \
       -H "Content-Type: application/json" \
       -d '{
