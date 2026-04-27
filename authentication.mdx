@@ -1,20 +1,46 @@
 ---
+
 title: "Authentication"
 description: "Secure your API requests using API Keys."
 ---
 
-The Gliiv API uses API keys to authenticate requests. You can view and manage your API keys in the **Developer Settings** of the Gliiv Dashboard.
+The Gliiv API uses API keys to authenticate requests. This ensures that every message sent programmatically is authorized and linked to your specific account.
+
+## Obtaining your API Key
+
+To get started, you need to generate a unique key from your dashboard.
+
+1. Navigate to the [API Settings](https://www.gliiv.com/app/settings/api-key) page.
+2. If no key is present, click **Generate API Key**.
+3. **Copy and save your key immediately.**
+
+<Warning>
+  **Important:** For security reasons, your API key is only shown once at the moment of generation. Once you navigate away or refresh the page, you will not be able to retrieve the full key again. If you lose it, you must delete the existing key and generate a new one.
+</Warning>
 
 ## Header Authentication
 
-All API requests must include the `x-api-key` header. Requests that do not include this header or use an invalid key will return a `401 Unauthorized` response.
+All API requests must include the `x-api-key` header. Requests that omit this header or provide an invalid key will be rejected with a `401 Unauthorized` response.
+
+### Header Specification
 
 <ResponseField name="x-api-key" type="string" required>
-  Your secret API key.
+  Your secret API key (formatted as `gliiv_xxxxxxxxxxxxxxxx`).
 </ResponseField>
 
 ### Example Header
+
+Your request headers should be structured as follows:
+
 ```http
-x-api-key: gliiv_live_xxxxxxxxxxxxxxxx
+x-api-key: gliiv_xxxxxxxxxxxxxxxx
 Content-Type: application/json
 ```
+
+---
+
+## Security Best Practices
+
+* **Server-Side Only:** Never expose your `x-api-key` in client-side code, frontend JavaScript, or public repositories.
+* **Storage:** Store your key securely using environment variables or a secrets management service.
+* **Replacement:** If you suspect your key has been compromised, revoke it immediately in the dashboard and generate a replacement.
