@@ -1,55 +1,102 @@
 ---
-title: "Manual Campaign Setup"
-description: "Launch or schedule bulk SMS campaigns directly from your dashboard."
+
+title: "Create a Campaign"
+description: "A comprehensive guide to configuring your bulk SMS campaigns."
 ---
 
-Manual campaigns are the fastest way to send bulk messages without writing code. Our system is optimized to handle massive contact lists with high precision.
+The campaign creation process allows for both immediate dispatch and precise future planning. Once submitted, the Gliiv engine handles all background processing and carrier routing.
 
-## Preparing your Contact List
-
-Before uploading, ensure your file (CSV or Excel) is formatted correctly.
-
-* **Phone Numbers:** Must include the country code (e.g., `250...`).
-* **Placeholders:** You can include extra columns like `First_Name` or `Balance` to personalize your messages using `{{Variable}}` syntax.
-
-<Info>
-  **Pro Tip:** If your file is extremely large (e.g., 5 million rows), our ingestion engine will process it in the background using BullMQ, allowing you to continue using the dashboard while we prepare the queue.
-</Info>
+## 1. Sender Selection
+Select an identity from the **Sender** dropdown. This list contains the Senders that have been authorized for your account by the Gliiv team.
 
 ---
 
-## The Creation Workflow
+## 2. Message Composition
+The **Message** field is where you define your SMS content. 
 
-<Steps>
-  <Step title="Upload your File">
-    Navigate to **Campaigns > New Campaign**. Drag your CSV or Excel file into the upload zone. Gliiv will instantly begin validating the data format.
-  </Step>
-  <Step title="Mapping Attributes">
-    Match your file columns to Gliiv attributes. 
-    * **Recipient:** Map your phone number column.
-    * **Variables:** Map any custom columns you wish to use as placeholders in your message body.
-  </Step>
-  <Step title="Compose & Schedule">
-    Type your message in the editor. Below the message box, you have two options for timing:
-    * **Send Now:** Messages enter the queue immediately.
-    * **Schedule for Later:** Toggle the radio button to select a specific date and time.
-  </Step>
-  <Step title="Review & Launch">
-    Check the preview. Once ready, click **Launch Campaign**. 
-  </Step>
-</Steps>
+<Tip title="Formatting Examples">
+  Below are examples of how you might format your message based on your chosen input method:
+
+  <CodeGroup>
+    ```text Standard (Plain Text)
+    Hello! Our annual clearance sale starts tomorrow at 8:00 AM. 
+    Visit our store for up to 50% off on all items.
+    ```
+
+    ```text Personalized (File Upload Only)
+    Dear {{name}}, your balance for account {{account_no}} is {{balance}} RWF. 
+    Please settle by {{due_date}} to avoid service interruption.
+    ```
+  </CodeGroup>
+</Tip>
+
+<Card title="How Credits are Charged" icon="calculator">
+  Credits are consumed based on the total character count of your message. The system uses a strict **160-character increment** to determine the cost per recipient:
+
+  * **1 to 160 characters** = 1 Credit
+  * **161 to 320 characters** = 2 Credits
+  * **321 to 480 characters** = 3 Credits
+  * **481 to 640 characters** = 4 Credits
+  * **641 to 800 characters** = 5 Credits
+
+  **Note:** Every additional character that pushes your message beyond a 160-limit threshold will immediately trigger an additional credit charge. The maximum allowed length for a single message is **800 characters**.
+</Card>
 
 ---
 
-## 📅 Campaign Scheduling
+## 3. Recipient Input Method
+Choose the method that best fits your workflow. Both methods support high-volume distribution.
 
-If you aren't ready to send immediately, you can use the **Scheduling** feature.
+<Tabs>
+  <Tab title="Manual Input">
+    ### Direct Entry
+    Paste or type numbers directly into the text area for immediate processing.
+    
+    * **Formatting:** Enter phone numbers one per line.
+    * **Input Limit:** This field supports a maximum of **1,000 characters** of raw number data.
+    * **Note:** Personalization placeholders are **not supported** in Manual Input; they will be sent as plain text.
+  </Tab>
 
-### How it Works
-When you check the **Schedule for Later** radio button, a date and time picker will appear.
+  <Tab title="File Upload">
+    ### Spreadsheet Processing
+    Upload a CSV or Excel file (maximum **20MB**) for large-scale outreach and personalization.
+    
+    * **Primary Column:** The first column must be named `phone` (case-sensitive).
+    * **Placeholder Mapping:** Use `{{brackets}}` that match your column headers (e.g., `{{name}}`). 
+    * **Validation:** Headers are case-sensitive. `{{Amount}}` will not work if your column is named `amount`.
+    * **Number Formatting:** Supported formats: `+250...`, `250...`, `07...`, or `7...`.
+  </Tab>
+</Tabs>
 
-* **Lead Time:** Scheduled campaigns must be set for at least **3 hours from the current time**. This ensures our system has ample time to validate and stage large-scale data before the dispatch window opens.
-* **Timezone:** All campaigns are scheduled based on your account's local timezone settings.
+---
 
-### Managing Scheduled Campaigns
-You can view, edit, or cancel a scheduled campaign from the **Campaigns** list view at any time before the scheduled dispatch time. Look for the **"Scheduled"** status badge.
+## 4. Scheduling
+The **Schedule Message?** toggle allows you to set a future dispatch time.
+
+* **Lead Time:** Scheduled campaigns must be set at least **3 hours** in advance to allow for system staging.
+* **Intervals:** The time selector uses **5-minute intervals** for synchronization.
+
+---
+
+## 5. Tracking & Statuses
+Monitor your campaign's lifecycle in the **Campaigns** tab.
+
+### Lifecycle Status
+| Status | Description |
+| :--- | :--- |
+| <span style={{color: '#3182CE'}}>**STAGED**</span> | The system is validating recipients and computing segments. |
+| <span style={{color: '#805AD5'}}>**PROCESSED**</span> | Messages are generated and mapped to placeholders. |
+| <span style={{color: '#38A169'}}>**DISPATCHED**</span> | The campaign has been handed over to carriers for delivery. |
+| <span style={{color: '#DD6B20'}}>**SCHEDULED**</span> | The campaign is queued for its designated future time. |
+| <span style={{color: '#718096'}}>**CANCELLED**</span> | The campaign was manually stopped before it reached the dispatch phase. |
+| <span style={{color: '#E53E3E'}}>**FAILED**</span> | An error occurred during processing or dispatch. |
+
+### Failure Diagnostics
+If a campaign shows a **FAILED** status, check the detail view for these specific system codes:
+
+| Error Code | Meaning |
+| :--- | :--- |
+| `USER_CANCELLED` | The campaign was manually stopped by a user. |
+| `BAD_FILE_DATA` | Structural issues, incorrect encoding, or missing `phone` header in the upload. |
+| `LOW_BALANCE` | Insufficient account credits to cover the total recipient count. |
+| `SYSTEM_ERROR` | An internal system interruption occurred during processing. |
