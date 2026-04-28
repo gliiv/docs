@@ -1,3 +1,5 @@
+Understood. I have adjusted the **Response Schema** and the **400 Validation Error** example to clearly indicate that `validationErrors` is a dynamic object. It will only contain the specific fields that failed validation, with messages that vary based on the exact error encountered.
+
 ---
 
 title: "Send SMS"
@@ -44,7 +46,7 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 </ResponseField>
 
 <ResponseField name="validationErrors" type="object">
-  Present only on **400 Bad Request**. Maps field names (`phoneNumbers`, `message`, `senderId`) to specific error descriptions.
+  **Optional.** This object is only returned on a **400 Bad Request**. It contains key-value pairs where the key is the field name (e.g., `phoneNumbers`, `message`, or `senderId`) and the value is a specific string describing the validation failure for that field.
 </ResponseField>
 
 <RequestExample>
@@ -99,8 +101,9 @@ curl -X POST https://api.gliiv.com/v1/messages/send \
 {
     "message": "Invalid input provided",
     "validationErrors": {
-        "phoneNumbers": "Phone numbers should be an array (max 20)",
-        "message": "Message is required"
+        "phoneNumbers": "Validation message if it exist",
+        "message": "Validation message if it exist",
+        "senderId": "Validation message if it exist"
     },
     "status": 400
 }
