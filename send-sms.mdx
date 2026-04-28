@@ -13,7 +13,7 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 
 ### Body Parameters
 
-<ParamField body="apiPhoneNumbers" type="string[]" required>
+<ParamField body="phoneNumbers" type="string[]" required>
   An array of recipient phone numbers. 
   * **Supported Formats:** `+250...`, `250...`, `07...`, or `7...`
   * **Limit:** Maximum of **20 numbers** per individual API request.
@@ -35,12 +35,16 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 
 ### Response Schema
 
-<ResponseField name="success" type="boolean">
-  Returns `true` if the message payload passed validation and was accepted into the processing queue.
+<ResponseField name="status" type="number">
+  The HTTP status code associated with the response.
 </ResponseField>
 
-<ResponseField name="messageId" type="string">
-  A unique tracking ID assigned to this batch.
+<ResponseField name="message" type="string">
+  A descriptive message detailing the outcome of the request.
+</ResponseField>
+
+<ResponseField name="validationErrors" type="object">
+  Present only on **400 Bad Request**. Maps field names (`phoneNumbers`, `message`, `senderId`) to specific error descriptions.
 </ResponseField>
 
 <RequestExample>
@@ -49,7 +53,7 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 const axios = require('axios');
 
 const data = {
-  apiPhoneNumbers: ["0780000000"],
+  phoneNumbers: ["0780000000"],
   message: "Hello from Gliiv!",
   senderId: "69c905148f112344e98b6b94"
 };
@@ -66,27 +70,7 @@ const config = {
 
 axios(config)
 .then(res => console.log(res.data))
-.catch(err => console.error(err));
-```
-
-```python Python
-import requests
-import json
-
-url = "https://api.gliiv.com/v1/messages/send"
-
-payload = json.dumps({
-  "apiPhoneNumbers": ["0780000000"],
-  "message": "Hello from Gliiv!",
-  "senderId": "69c905148f112344e98b6b94"
-})
-headers = {
-  'x-api-key': 'gliiv_xxxxxxxxxxxxxxxx',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("POST", url, headers=headers, data=payload)
-print(response.text)
+.catch(err => console.error(err.response.data));
 ```
 
 ```bash cURL
@@ -94,7 +78,7 @@ curl -X POST https://api.gliiv.com/v1/messages/send \
   -H "x-api-key: <your_api_key>" \
   -H "Content-Type: application/json" \
   -d '{
-    "apiPhoneNumbers": ["0780000000"],
+    "phoneNumbers": ["0780000000"],
     "message": "Hello from Gliiv!",
     "senderId": "69c905148f112344e98b6b94"
   }'
@@ -104,17 +88,42 @@ curl -X POST https://api.gliiv.com/v1/messages/send \
 
 <ResponseExample>
 
-```json 201 Created
+```json 200 Success
 {
-  "success": true,
-  "messageId": "msg_7fb29a10e45d"
+    "message": "Messages are being sent",
+    "status": 200
 }
 ```
 
-```json 401 Unauthorized
+```json 400 Validation Error
 {
-  "message": "Unauthorized",
-  "statusCode": 401
+    "message": "Invalid input provided",
+    "validationErrors": {
+        "phoneNumbers": "Phone numbers should be an array (max 20)",
+        "message": "Message is required"
+    },
+    "status": 400
+}
+```
+
+```json 401 Unauthenticated
+{
+    "message": "Authentication required",
+    "status": 401
+}
+```
+
+```json 404 Not Found
+{
+    "message": "Sender not found",
+    "status": 404
+}
+```
+
+```json 500 App Error
+{
+    "message": "Internal server error",
+    "status": 500
 }
 ```
 
