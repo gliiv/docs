@@ -3,6 +3,9 @@
 title: "Send SMS"
 api: "POST https://api.gliiv.com/v1/messages/send"
 description: "Send high-priority single or bulk messages via the Gliiv gateway."
+auth: "none"
+headers:
+  x-api-key: "YOUR_API_KEY"
 ---
 
 The `/send` endpoint allows you to programmatically dispatch messages to your recipients. All requests are processed through our high-speed gateway to ensure rapid delivery.
