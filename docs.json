@@ -12,7 +12,7 @@
   },
   "favicon": "/favicon.ico",
   "appearance": {
-    "default": "system"
+    "default": "light"
   },
   "fonts": {
     "family": "Nunito Sans"
