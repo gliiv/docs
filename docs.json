@@ -15,7 +15,11 @@
     "default": "light"
   },
   "fonts": {
-    "family": "Nunito Sans"
+    "family": "Nunito Sans",
+    "weight": 400,
+    "body": {
+      "family": "Inter"
+    }
   },
   "icons": {
     "library": "lucide"
