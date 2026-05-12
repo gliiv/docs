@@ -16,13 +16,7 @@
   },
   "fonts": {
     "family": "Nunito Sans",
-    "weight": 400,
-    "heading": {
-      "weight": 600
-    },
-    "body": {
-      "family": "Inter"
-    }
+    "weight": 400
   },
   "icons": {
     "library": "lucide"
