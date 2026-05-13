@@ -1,18 +1,20 @@
 ---
-
 title: "Send SMS"
-api: "POST https://api.gliiv.com/v1/messages/send"
+api: "POST https://api.gliiv.com/v1/api/messages/send"
 description: "Send high-priority single or bulk messages via the Gliiv gateway."
-auth: "none"
-headers:
-  x-api-key: "YOUR_API_KEY"
 ---
 
 The `/send` endpoint allows you to programmatically dispatch messages to your recipients. All requests are processed through our high-speed gateway to ensure rapid delivery.
 
 <Note>
-  **Requirement:** Before using this endpoint, you must have at least one **Sender** assigned to your account.
+  **Requirement:** Before using this endpoint, you must have at least one **Sender** identity assigned to your account.
 </Note>
+
+### Headers
+
+<ParamField header="X-API-Key" type="string" placeholder="gliiv_xxxxxxxxxxxxxxxx" required>
+  Your secret API key used to authenticate the request.
+</ParamField>
 
 ### Body Parameters
 
@@ -29,106 +31,79 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 </ParamField>
 
 <ParamField body="senderId" type="string" required>
-  The unique ID of your assigned **Sender**.
-  
-  **How to obtain:** 1. Head to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
-  2. Click to preview the details of the specific Sender you wish to use.
-  3. Copy the ID using the provided copy button.
+  The unique ID of your authorized **Sender**. Retrieve this from the [List All Senders](/api-reference/list-all-senders) endpoint.
 </ParamField>
 
-### Response Schema
-
-<ResponseField name="status" type="number">
-  The HTTP status code associated with the response.
-</ResponseField>
+### Response Body
 
 <ResponseField name="message" type="string">
   A descriptive message detailing the outcome of the request.
 </ResponseField>
 
-<ResponseField name="validationErrors" type="object">
-  **Optional.** This object is only returned on a **400 Bad Request**. It contains key-value pairs where the key is the field name (e.g., `phoneNumbers`, `message`, or `senderId`) and the value is a specific string describing the validation failure for that field.
+<ResponseField name="status" type="number">
+  The HTTP status code associated with the response.
 </ResponseField>
 
-<RequestExample>
-
-```javascript Node.js
-const axios = require('axios');
-
-const data = {
-  phoneNumbers: ["0780000000"],
-  message: "Hello from Gliiv!",
-  senderId: "69c905148f112344e98b6b94"
-};
-
-const config = {
-  method: 'post',
-  url: 'https://api.gliiv.com/v1/messages/send',
-  headers: { 
-    'x-api-key': 'gliiv_xxxxxxxxxxxxxxxx', 
-    'Content-Type': 'application/json'
-  },
-  data : data
-};
-
-axios(config)
-.then(res => console.log(res.data))
-.catch(err => console.error(err.response.data));
-```
-
-```bash cURL
-curl -X POST https://api.gliiv.com/v1/messages/send \
-  -H "x-api-key: <your_api_key>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "phoneNumbers": ["0780000000"],
-    "message": "Hello from Gliiv!",
-    "senderId": "69c905148f112344e98b6b94"
-  }'
-```
-
-</RequestExample>
+<ResponseField name="validationErrors" type="object">
+  **Optional.** Returned only on a **400 Bad Request**. Contains field-specific error messages.
+  <Expandable title="Validation Error Details">
+    <ResponseField name="phoneNumbers" type="string">
+      Error detail for the phone numbers array.
+    </ResponseField>
+    <ResponseField name="message" type="string">
+      Error detail for the message content.
+    </ResponseField>
+    <ResponseField name="senderId" type="string">
+      Error detail for the sender identification.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
 <ResponseExample>
 
-```json 200 Success
+```json 200
 {
     "message": "Messages are being sent",
     "status": 200
 }
+
 ```
 
-```json 400 Validation Error
+```json 400
 {
     "message": "Invalid input provided",
     "validationErrors": {
-        "phoneNumbers": "Validation message if it exist",
-        "message": "Validation message if it exist",
-        "senderId": "Validation message if it exist"
+        "phoneNumbers": "<string>",
+        "message": "<string>",
+        "senderId": "<string>"
     },
     "status": 400
 }
+
 ```
 
-```json 401 Unauthenticated
+```json 401
 {
     "message": "Authentication required",
     "status": 401
 }
+
 ```
 
-```json 404 Not Found
+```json 404
 {
     "message": "Sender not found",
     "status": 404
 }
+
 ```
 
-```json 500 App Error
+```json 500
 {
     "message": "Internal server error",
     "status": 500
 }
+
 ```
 
 </ResponseExample>
