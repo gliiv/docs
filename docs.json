@@ -26,39 +26,44 @@
   },
   "thumbnails": { "appearance": "light", "fonts": { "family": "Nunito Sans" } },
   "navigation": {
-    "tabs": [
+    "versions": [
       {
-        "tab": "Guides",
-        "groups": [
+        "version": "v1",
+        "tabs": [
           {
-            "group": "Getting Started",
-            "pages": [
-              "introduction",
-              "quickstart"
+            "tab": "Guides",
+            "groups": [
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "introduction",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "Campaign Management",
+                "pages": [
+                  "manual-setup"
+                ]
+              }
             ]
           },
           {
-            "group": "Campaign Management",
+            "tab": "API Reference",
             "pages": [
-              "manual-setup"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "pages": [
-          "authentication",
-          {
-            "group": "Senders",
-            "pages": [
-              "get-all-senders"
-            ]
-          },
-          {
-            "group": "Messages",
-            "pages": [
-              "send-sms"
+              "authentication",
+              {
+                "group": "Senders",
+                "pages": [
+                  "get-all-senders"
+                ]
+              },
+              {
+                "group": "Messages",
+                "pages": [
+                  "send-sms"
+                ]
+              }
             ]
           }
         ]
