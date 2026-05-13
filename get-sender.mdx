@@ -1,0 +1,106 @@
+---
+title: "Get Sender"
+api: "GET https://api.gliiv.com/v1/api/senders/{senderId}"
+description: "Retrieve detailed information about a specific sender identity."
+---
+
+This endpoint returns the full details of a single sender identity, including its current balance and ownership information.
+
+### Path Parameters
+
+<ParamField path="senderId" type="string" placeholder="6a03469dbed1ebe90950e973" required>
+  The unique identifier of the sender you want to retrieve.
+</ParamField>
+
+### Headers
+
+<ParamField header="X-API-Key" type="string" placeholder="gliiv_xxxxxxxxxxxxxxxx" required>
+  Your secret API key used to authenticate the request.
+</ParamField>
+
+### Response Body
+
+<ResponseField name="id" type="string">
+  The unique identifier for the sender.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The alphanumeric label or short code.
+</ResponseField>
+
+<ResponseField name="balance" type="number">
+  The specific credit balance allocated to this sender.
+</ResponseField>
+
+<ResponseField name="user" type="object">
+  Information about the owner of the sender identity.
+  <Expandable title="User Details">
+    <ResponseField name="name" type="string">
+      The name of the user.
+    </ResponseField>
+    <ResponseField name="id" type="string">
+      The unique identifier of the user.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  The ISO 8601 timestamp of creation.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  The ISO 8601 timestamp of the last update.
+</ResponseField>
+
+<ResponseExample>
+
+```json 200
+{
+    "id": "<string>",
+    "name": "<string>",
+    "balance": "<number>",
+    "user": {
+        "name": "<string>",
+        "id": "<string>"
+    },
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
+}
+
+```
+
+```json 400
+{
+    "message": "Invalid input provided",
+    "validationErrors": {
+        "senderId": "Please provide a valid sender ID"
+    },
+    "status": 400
+}
+```
+
+```json 401
+{
+  "message": "Authentication required",
+  "status": 401
+}
+
+```
+
+```json 404
+{
+  "message": "Sender not found",
+  "status": 404
+}
+
+```
+
+```json 500
+{
+    "message": "Internal server error",
+    "status": 500
+}
+
+```
+
+</ResponseExample>
