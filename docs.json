@@ -79,5 +79,6 @@
   },
   "variables": {
     "api_url": "https://api.gliiv.com/v1/api"
-  }
+  },
+  "description": "Comprehensive developer documentation and user guides for Gliiv. Learn how to configure SMS campaigns, manage senders, upload personalized customer data, and integrate our robust messaging APIs."
 }
