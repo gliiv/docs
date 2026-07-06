@@ -1,20 +1,20 @@
 ---
-title: "Get Sender"
+title: "Get Sender Details API: Fetch SMS Identity Data"
 api: "GET https://api.gliiv.com/v1/api/senders/{senderId}"
-description: "Retrieve detailed information about a specific sender identity."
+description: "GET /v1/api/senders/{senderId}. Fetch detailed information for a specific sender ID, including ownership metadata and real-time credit balance."
 ---
 
 This endpoint returns the full details of a single sender identity, including its current balance and ownership information.
 
 ### Path Parameters
 
-<ParamField path="senderId" type="string" placeholder="6a03469dbed1ebe90950e973" required>
+<ParamField path="senderId" type="string" required placeholder="6a03469dbed1ebe90950e973">
   The unique identifier of the sender you want to retrieve.
 </ParamField>
 
 ### Headers
 
-<ParamField header="X-API-Key" type="string" placeholder="gliiv_xxxxxxxxxxxxxxxx" required>
+<ParamField header="X-API-Key" type="string" required placeholder="gliiv_xxxxxxxxxxxxxxxx">
   Your secret API key used to authenticate the request.
 </ParamField>
 
@@ -34,10 +34,12 @@ This endpoint returns the full details of a single sender identity, including it
 
 <ResponseField name="user" type="object">
   Information about the owner of the sender identity.
+
   <Expandable title="User Details">
     <ResponseField name="name" type="string">
       The name of the user.
     </ResponseField>
+
     <ResponseField name="id" type="string">
       The unique identifier of the user.
     </ResponseField>
@@ -66,7 +68,6 @@ This endpoint returns the full details of a single sender identity, including it
     "createdAt": "<string>",
     "updatedAt": "<string>"
 }
-
 ```
 
 ```json 400
@@ -84,7 +85,6 @@ This endpoint returns the full details of a single sender identity, including it
   "message": "Authentication required",
   "status": 401
 }
-
 ```
 
 ```json 404
@@ -92,7 +92,6 @@ This endpoint returns the full details of a single sender identity, including it
   "message": "Sender not found",
   "status": 404
 }
-
 ```
 
 ```json 500
@@ -100,7 +99,6 @@ This endpoint returns the full details of a single sender identity, including it
     "message": "Internal server error",
     "status": 500
 }
-
 ```
 
 </ResponseExample>
