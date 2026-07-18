@@ -75,7 +75,10 @@
     }
   },
   "seo": {
-    "indexing": "navigable"
+    "indexing": "navigable",
+    "metatags": {
+      "og:image": "/og-image.png"
+    }
   },
   "variables": {
     "api_url": "https://api.gliiv.com/v1/api"
