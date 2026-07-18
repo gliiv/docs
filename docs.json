@@ -75,7 +75,7 @@
     }
   },
   "seo": {
-    "indexing": "all"
+    "indexing": "navigable"
   },
   "variables": {
     "api_url": "https://api.gliiv.com/v1/api"
