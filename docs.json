@@ -77,7 +77,7 @@
   "seo": {
     "indexing": "navigable",
     "metatags": {
-      "og:image": "/og-image.png"
+      "og:image": "/images/og-image.png"
     }
   },
   "variables": {
