@@ -52,23 +52,20 @@
   "fonts": {
     "heading": {
       "family": "Nunito Sans",
-      "weight": 750
+      "source": "/fonts/nunito-sans-700.woff2",
+      "format": "woff2"
     },
     "body": {
-      "family": "Nunito Sans"
+      "family": "Nunito Sans",
+      "source": "/fonts/nunito-sans-400.woff2",
+      "format": "woff2"
     }
   },
   "icons": {
     "library": "lucide"
   },
   "contextual": {
-    "options": [
-      "claude",
-      "chatgpt",
-      "cursor",
-      "copy",
-      "vscode"
-    ],
+    "options": ["claude", "chatgpt", "cursor", "copy", "vscode"],
     "display": "header"
   },
   "metadata": {
@@ -88,16 +85,11 @@
             "groups": [
               {
                 "group": "Getting Started",
-                "pages": [
-                  "index",
-                  "quickstart"
-                ]
+                "pages": ["index", "quickstart"]
               },
               {
                 "group": "Campaign Management",
-                "pages": [
-                  "create-campaign"
-                ]
+                "pages": ["create-campaign"]
               }
             ]
           },
@@ -107,16 +99,11 @@
               "authentication",
               {
                 "group": "Senders",
-                "pages": [
-                  "list-senders",
-                  "get-sender"
-                ]
+                "pages": ["list-senders", "get-sender"]
               },
               {
                 "group": "Messages",
-                "pages": [
-                  "send-sms"
-                ]
+                "pages": ["send-sms"]
               }
             ]
           }
