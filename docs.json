@@ -68,7 +68,12 @@
     "dark": "/logo/dark.svg"
   },
   "contextual": {
-    "options": ["claude", "chatgpt", "cursor", "copy", "view"]
+    "options": [
+      "claude",
+      "chatgpt",
+      "cursor",
+      "copy",
+      "vscode""]
   },
   "footer": {
     "socials": {
