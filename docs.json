@@ -40,7 +40,7 @@
               },
               {
                 "group": "Campaign Management",
-                "pages": ["manual-setup"]
+                "pages": ["create-campaign"]
               }
             ]
           },
@@ -50,7 +50,7 @@
               "authentication",
               {
                 "group": "Senders",
-                "pages": ["list-all-senders", "get-sender"]
+                "pages": ["list-senders", "get-sender"]
               },
               {
                 "group": "Messages",
