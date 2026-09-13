@@ -10,14 +10,17 @@ The Gliiv API uses API keys to authenticate requests. This ensures that every me
 
 ## Obtaining your API Key
 
-To get started, you need to generate a unique key from your dashboard.
+To get started, generate a unique key from your account dashboard. You can create up to **3 API keys** per account.
 
 1. Navigate to the [API Settings](https://www.gliiv.com/app/settings/api-key) page.
-2. If no key is present, click **Generate New Key**.
-3. **Copy and save your key immediately.**
+2. Click the **Create Key** button to open the configuration modal.
+3. Configure your key settings (optional):
+   - **Name:** Give your key a descriptive label (defaults to `"API Key"` if left blank).
+   - **Expires at:** Select an expiration date and time (defaults to **Never / Valid forever** if left blank).
+4. Click submit, then **copy and save your generated key immediately**.
 
 <Warning>
-  **Important:** For security reasons, your API key is only shown once at the moment of generation. Once you navigate away or refresh the page, you will not be able to retrieve the full key again. If you lose it, you must delete the existing key and generate a new one.
+  **Important:** API keys are displayed **only once** at the time of creation. For security reasons, Gliiv does not store unencrypted keys and cannot retrieve them after you leave or refresh the page. If a key is lost or compromised, you must delete it and generate a new one.
 </Warning>
 
 ## Header Authentication
