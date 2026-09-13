@@ -17,7 +17,7 @@ Authenticate with the platform to access your dashboard and developer tools.
     Create an account via Email, Google, or GitHub.
   </Card>
 
-  <Card title="Login" icon="log-in" href="https://www.gliiv.com/app/auth/signin">
+  <Card title="Sign In" icon="log-in" href="https://www.gliiv.com/app/auth/signin">
     Access your existing dashboard.
   </Card>
 </CardGroup>
@@ -29,9 +29,10 @@ Authenticate with the platform to access your dashboard and developer tools.
 A **Sender** is the identity recipients see on their phones. These must be manually assigned to your account for security compliance.
 
 1. **Check your status:** Visit the **Senders** tab in the dashboard.
-2. **Request a new identity:** If your list is empty, reach out to us:
-   - **Online:** Use our [Contact Form](https://www.gliiv.com/contact).
-   - **In-Person:** Contact our team directly to discuss your requirements.
+2. **Request a new identity:** If your list is empty, reach out to us through any channel on our [Contact Page](https://www.gliiv.com/contact):
+   - **Form:** Send us a message directly via the contact form.
+   - **Email:** Write to us at `hello@gliiv.com`.
+   - **Phone & Toll Free:** Call us at `+250 788 450 080` or dial our toll-free line at `6035`.
 
 ---
 
@@ -57,16 +58,16 @@ Once you have an approved identity in your **Senders** tab, choose your method:
     ### Instant Dispatch
 
     1. **Generate API Key:** Go to [API Settings](https://www.gliiv.com/app/settings/api-key). (Save it securely; it is shown only once).
-    2. **Get Sender ID:** Go to the **Senders** tab, click **Details** on your sender, and copy the hexadecimal ID.
+    2. **Get Sender ID:** Go to the **Senders** tab, click on your sender name in the table to open its details modal, and copy the hexadecimal ID.
 
     ```bash
     curl -X POST https://api.gliiv.com/v1/messages/send \
       -H "x-api-key: <your_api_key>" \
       -H "Content-Type: application/json" \
       -d '{
-        "apiPhoneNumbers": ["+250700000000"],
+        "apiPhoneNumbers": ["<phone_number>", "<...>"],
         "message": "Hello from Gliiv!",
-        "senderId": "69c905148f112344e98b6b94"
+        "senderId": "<sender_id>"
       }'
     ```
 
