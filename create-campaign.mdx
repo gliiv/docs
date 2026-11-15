@@ -9,168 +9,178 @@ keywords:
   - "dynamic text placeholders"
 ---
 
-The campaign creation process allows for both immediate dispatch and precise future planning. Once submitted, the Gliiv engine handles all background processing and carrier routing.
+A campaign sends one message to a list of phone numbers from the dashboard. Send it **immediately**, and it enters the sending queue as soon as you submit. Or **schedule** it, and Gliiv prepares it and sends it at the time you choose.
 
-## 1. Sender Selection
+To start, go to **Campaigns** and click **Create Campaign**.
 
-Select an identity from the **Sender** dropdown. This list contains the Senders that have been authorized for your account.
+## 1. Sender
 
-<Tip>
-  Need an assigned Sender identity before you can dispatch a campaign? Follow our guide on how to <a href="/quickstart#2-obtain-an-approved-sender" target="_blank" rel="noopener noreferrer">Obtain an Approved Sender</a> to see all available request channels.
-</Tip>
-
----
-
-## 2. Message Composition
-
-The **Message** field is where you define your SMS content.
+Choose the **Sender** your message comes from. This is the name recipients see. Only Senders approved for your account appear in the dropdown, and the campaign's credits are taken from that Sender's balance.
 
 <Tip>
-  Below are examples of how you might format your message based on your chosen input method:
-
-  <CodeGroup>
-
-  ```text Standard (Plain Text)
-  Hello! Our annual clearance sale starts tomorrow at 8:00 AM. 
-  Visit our store for up to 50% off on all items.
-  ```
-
-  ```text Personalized (File Upload Only)
-  Dear {{name}}, your balance for account {{account_no}} is {{balance}} RWF. 
-  Please settle by {{due_date}} to avoid service interruption.
-  ```
-
-  </CodeGroup>
+  No Senders in the list? Senders are assigned by the Gliiv team for compliance. Request one at [hello@gliiv.com](mailto:hello@gliiv.com) or +250 788 450 080. It appears in your **Senders** tab once it's approved.
 </Tip>
 
-### How credits are charged
+## 2. Message
 
-Each SMS costs **1 credit per recipient**. Short messages fit in one SMS. Longer messages are split into several SMS behind the scenes, but your contact still receives them as **one message**.
+Type your message in plain text, up to **800 characters**. Under the message box, a live counter shows how many characters you've used and how many SMS each recipient will cost.
 
-Under the **Message** box you'll see a live counter, for example `103 characters · 1 SMS`. That number is what each recipient will cost.
+```text Standard message
+Hello! Our offices will be closed on Friday. We reopen on Monday at 8:00.
+```
+
+To give each person their own details, add placeholders: column names from your file between double curly braces.
+
+```text Personalized message (file upload only)
+Hello {{name}}, your balance is {{amount}} RWF.
+```
+
+<Tip>
+  Placeholders only work when you upload a file. A placeholder must match a column header exactly, including capital letters, so `{{Name}}` won't match a column called `name`.
+</Tip>
+
+## 3. How credits are charged
+
+**One SMS to one person costs 1 credit.** A long message is split into several SMS. The recipient still sees one message, but each part costs 1 credit.
+
+**Total credits = recipients × credits per recipient**
+
+How many SMS a message needs depends on its length and on the characters it contains:
 
 <Tabs>
   <Tab title="Normal text">
-    Letters, numbers and common punctuation.
+    Messages that use only standard letters, numbers and common punctuation.
 
     | Message length | Credits per recipient |
     | :-- | :-- |
-    | 1 – 160 characters | 1 |
-    | 161 – 306 characters | 2 |
-    | 307 – 459 characters | 3 |
-    | 460 – 612 characters | 4 |
-    | 613 – 765 characters | 5 |
-    | 766 – 800 characters | 6 |
+    | 1–160 characters | 1 |
+    | 161–306 characters | 2 |
+    | 307–459 characters | 3 |
+    | 460–612 characters | 4 |
+    | 613–765 characters | 5 |
+    | 766–800 characters | 6 |
   </Tab>
   <Tab title="With special characters">
-    Applies if your message contains even **one** special character (see below).
+    Messages that contain at least one emoji or other special character.
 
     | Message length | Credits per recipient |
     | :-- | :-- |
-    | 1 – 70 characters | 1 |
-    | 71 – 134 characters | 2 |
-    | 135 – 201 characters | 3 |
-    | 202 – 268 characters | 4 |
-    | 269 – 335 characters | 5 |
+    | 1–70 characters | 1 |
+    | 71–134 characters | 2 |
+    | 135–201 characters | 3 |
+    | 202–268 characters | 4 |
+    | 269–335 characters | 5 |
+
+    A message with special characters can be up to **335 characters** long.
   </Tab>
 </Tabs>
 
 <Note>
-  Why isn't it 320 for 2 SMS? When a message is split, each part keeps a few characters to join the parts back together on the phone, so each part holds 153 characters (or 67 with special characters).
+  Why 153 and 67 instead of 160 and 70? When a message is split, each part carries a small hidden header that tells the phone how to join the parts back together. That header takes up space, so each part holds slightly fewer characters.
 </Note>
 
-### Special characters
+**Why one character can change the cost.** SMS uses a standard alphabet called [GSM-7](https://en.wikipedia.org/wiki/GSM_03.38), which covers English letters, numbers and common punctuation. If your message contains even one character outside that alphabet, such as an emoji, a curly quote or certain accented letters, the **whole message** has to be sent in a larger format called Unicode. That format fits only 70 characters in one SMS instead of 160, so the same message can cost two or three times more.
 
-Some characters make each SMS hold **70 characters instead of 160**. This happens because SMS has its own standard alphabet (called GSM-7); any character outside it switches the whole message to a larger format (called Unicode). So the same message can cost more than double. When this happens, the form shows a warning under the **Message** box listing the characters.
-
-The most common ones come from copying text out of Word, Google Docs or WhatsApp:
+These are the most common causes, and what to type instead:
 
 | Instead of this | Type this |
 | :-- | :-- |
-| Curly quotes `’ ‘ “ ”` | Straight quotes `' "` |
-| Long dashes `– —` | A normal hyphen `-` |
-| The ellipsis `…` | Three dots `...` |
-| Accented letters such as `á í ó ú ê ç` | The plain letter `a i o u e c` |
-| Emoji 😀 | Remove them |
+| Curly quotes `“ ”` and `‘ ’` | Straight quotes `"` and `'` |
+| Long dashes `–` and `—` | A hyphen `-` |
+| Ellipsis `…` | Three dots `...` |
+| Accented letters such as `á`, `ê`, `ô` | Plain letters `a`, `e`, `o` |
+| Emoji such as 😊 🎉 | Remove them |
 
 <Tip>
-  To avoid surprises, type your message directly in the box, or paste it into a plain-text editor first, then check the counter before you submit.
+  Curly quotes and long dashes usually sneak in when you copy text from Word, Google Docs or a phone's notes app. Check the live counter after pasting. If it jumps from 160 to 70 characters per SMS, look for one of the characters above.
 </Tip>
 
-A few normal symbols are allowed but **count as 2 characters**: `^ { } \ [ ] ~ | €`. That includes the braces in placeholders, so `{{name}}` counts as 12 characters before it's filled in.
+Some symbols are part of the GSM-7 alphabet but count as **2 characters** each: `^ { } \ [ ] ~ | €`
 
 <Note>
-  For personalized messages, the count is based on each contact's message **after** the placeholders are filled in. A long name or amount can push one contact's message into an extra SMS.
+  For personalized messages, the count is based on each person's final message, after their details are filled in. A long name or amount can add one extra SMS for that person, so the total cost can vary slightly from person to person.
 </Note>
 
-The maximum length for a single message is **800 characters**.
+## 4. Recipients
 
-#### Further reading
-
-1. <a href="https://en.wikipedia.org/wiki/Concatenated_SMS" target="_blank" rel="noopener noreferrer">Concatenated SMS (Wikipedia)</a>: how long messages are split and joined back together.
-2. <a href="https://en.wikipedia.org/wiki/GSM_03.38" target="_blank" rel="noopener noreferrer">GSM 03.38 (Wikipedia)</a>: the full list of standard SMS characters and which ones count as 2.
-
----
-
-## 3. Recipient Input Method
-
-Choose the method that best fits your workflow. Both methods support high-volume distribution.
+Gliiv sends to **Rwandan numbers only**. You can write numbers as `+2507XXXXXXXX`, `2507XXXXXXXX`, `07XXXXXXXX` or `7XXXXXXXX`, and you can mix formats in the same list.
 
 <Tabs>
-  <Tab title="Manual Input">
-    ### Direct Entry
+  <Tab title="Manual input">
+    - Type or paste **one number per line**.
+    - Up to **1,000 characters** in total.
+    - Placeholders aren't supported. Anything like `{{name}}` is sent exactly as typed.
 
-    Paste or type numbers directly into the text area for immediate processing.
-
-    - **Formatting:** Enter phone numbers one per line.
-    - **Input Limit:** This field supports a maximum of **1,000 characters** of raw number data.
-    - **Note:** Personalization placeholders are **not supported** in Manual Input; they will be sent as plain text.
+    ```text Recipients
+    07XXXXXXXX
+    +2507XXXXXXXX
+    7XXXXXXXX
+    ```
   </Tab>
-  <Tab title="File Upload">
-    ### Spreadsheet Processing
+  <Tab title="File upload">
+    - Upload a **CSV** or **Excel** file, up to **20 MB**.
+    - The first column must be named `phone`, in lowercase.
+    - Any other column can be used as a placeholder in your message.
 
-    Upload a CSV or Excel file (maximum **20MB**) for large-scale outreach and personalization.
-
-    - **Primary Column:** The first column must be named `phone` (case-sensitive).
-    - **Placeholder Mapping:** Use `{{brackets}}` that match your column headers (e.g., `{{name}}`).
-    - **Validation:** Headers are case-sensitive. `{{Amount}}` will not work if your column is named `amount`.
-    - **Number Formatting:** Supported formats: `+250...`, `250...`, `07...`, or `7...`.
+    ```csv contacts.csv
+    phone,name,amount
+    07XXXXXXXX,Aline,5000
+    +2507XXXXXXXX,Eric,12000
+    ```
   </Tab>
 </Tabs>
 
----
+<Tip>
+  Use manual input for a handful of numbers and file upload for anything larger, or whenever you want to personalize the message.
+</Tip>
 
-## 4. Scheduling
+## 5. Scheduling
 
-The **Schedule Message?** toggle allows you to set a future dispatch time.
+To send now, leave **Schedule Message?** off and click **Submit**. To send later, turn it on and pick a date and time:
 
-- **Lead Time:** Scheduled campaigns must be set at least **3 hours** in advance to allow for system staging.
-- **Intervals:** The time selector uses **5-minute intervals** for synchronization.
+- **Minimum lead time:** at least **3 hours** from now.
+- **Time intervals:** times go in **5-minute** steps (14:00, 14:05, 14:10…).
+- **Time zone:** all times are in **Rwanda time (CAT, UTC+02:00)**, the time shown in the dashboard header.
 
----
+<Tip>
+  To send sooner than 3 hours from now, send the campaign immediately instead.
+</Tip>
 
-## 5. Tracking & Statuses
+## 6. Tracking and statuses
 
-Monitor your campaign's lifecycle in the **Campaigns** tab.
+After you submit, follow your campaign's progress on the **Campaigns** page.
 
-### Lifecycle Status
+<Tabs>
+  <Tab title="Campaign status">
+    | Status | Meaning |
+    | :-- | :-- |
+    | `staged` | Checking recipients and counting SMS per message. |
+    | `processed` | Each person's message is ready, with placeholders filled in. |
+    | `scheduled` | Waiting for the date and time you picked. |
+    | `dispatched` | Handed to the mobile networks for delivery. |
+    | `completed` | Every message in the campaign has been handled. |
+    | `cancelled` | Stopped before it was sent. |
+    | `failed` | The campaign couldn't be sent. See **Campaign failures**. |
+  </Tab>
+  <Tab title="Campaign failures">
+    | Code | Meaning |
+    | :-- | :-- |
+    | `BAD_FILE_DATA` | The file couldn't be read, or its first column isn't named `phone`. |
+    | `LOW_BALANCE` | The Sender doesn't have enough credits (recipients × credits per recipient). |
+    | `USER_CANCELLED` | Someone on your account cancelled the campaign. |
+    | `USER_BANNED` | Your account is suspended. Contact the Gliiv team. |
+    | `SYSTEM_ERROR` | An internal error interrupted the campaign. Try again. |
+  </Tab>
+  <Tab title="Message failures">
+    A campaign can complete while a few individual messages fail. Each failed message shows one of these codes:
 
-| Status | Description |
-| :-- | :-- |
-| <span style={{color: '#3182CE'}}>**STAGED**</span> | The system is validating recipients and counting how many SMS each message needs. |
-| <span style={{color: '#805AD5'}}>**PROCESSED**</span> | Messages are generated and mapped to placeholders. |
-| <span style={{color: '#38A169'}}>**DISPATCHED**</span> | The campaign has been handed over to carriers for delivery. |
-| <span style={{color: '#DD6B20'}}>**SCHEDULED**</span> | The campaign is queued for its designated future time. |
-| <span style={{color: '#718096'}}>**CANCELLED**</span> | The campaign was manually stopped before it reached the dispatch phase. |
-| <span style={{color: '#E53E3E'}}>**FAILED**</span> | An error occurred during processing or dispatch. |
-
-### Failure Diagnostics
-
-If a campaign shows a **FAILED** status, check the detail view for these specific system codes:
-
-| Error Code | Meaning |
-| :-- | :-- |
-| `USER_CANCELLED` | The campaign was manually stopped by a user. |
-| `BAD_FILE_DATA` | Structural issues, incorrect encoding, or missing `phone` header in the upload. |
-| `LOW_BALANCE` | Insufficient account credits to cover the campaign (recipients × SMS per message). |
-| `SYSTEM_ERROR` | An internal system interruption occurred during processing. |
+    | Code | Meaning |
+    | :-- | :-- |
+    | `INVALID_NUMBER` | Not a valid Rwandan mobile number. |
+    | `EMPTY_CONTENT` | The message had no text to send. |
+    | `LOW_BALANCE` | The Sender ran out of credits before this message was sent. |
+    | `USER_CANCELLED` | The campaign was cancelled before this message was sent. |
+    | `USER_BANNED` | Your account is suspended. |
+    | `SYSTEM_ERROR` | An internal error stopped this message. |
+  </Tab>
+</Tabs>

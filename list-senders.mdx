@@ -10,101 +10,98 @@ keywords:
   - "fetch API identities"
 ---
 
-This endpoint returns a list of sender IDs—such as alphanumeric names or registered short codes—that are authorized for use on your account.
+Returns the Senders approved for your account, one page at a time. Use it to find the `senderId` you need to send messages, or to check how many credits each Sender has left.
 
-### Headers
+## Headers
 
-<ParamField header="x-api-key" type="string" required placeholder="gliiv_xxxxxxxxxxxxxxxx">
-  Your secret API key used to authenticate the request.
+<ParamField header="x-api-key" type="string" required>
+  Your API key, for example `gliiv_xxxxxxxxxxxxxxxx`. Create one in **Settings → API Keys**.
 </ParamField>
 
-### Query Parameters
+## Query parameters
 
-<ParamField query="sortBy" type="string" required={false}>
-  The field used to sort the results.
-
-  _Choices:_ `balance`, `createdAt`
+<ParamField query="page" default="1" type="number">
+  The page to return, starting at `1`.
 </ParamField>
 
-<ParamField query="sortDirection" type="string" required={false}>
-  The direction of the sort.
-
-  _Choices:_ `asc`, `desc`
+<ParamField query="limit" default="50" type="number">
+  How many Senders to return per page.
 </ParamField>
 
-<ParamField query="page" default={1} type="number" required={false}>
-  The page number to retrieve for pagination.
+<ParamField query="sortBy" type="string">
+  The field to sort by: `balance` or `createdAt`.
 </ParamField>
 
-<ParamField query="limit" default={50} type="number" required={false}>
-  The number of sender records to return per page.
+<ParamField query="sortDirection" type="string">
+  The sort order: `asc` (lowest or oldest first) or `desc` (highest or newest first).
 </ParamField>
 
-### Response Body
+<RequestExample>
 
-<ResponseField name="senders" type="object[]">
-  An array of authorized sender objects.
+```bash cURL
+curl "https://api.gliiv.com/v1/api/senders?page=1&limit=50&sortBy=balance&sortDirection=desc" \
+  -H "x-api-key: $GLIIV_API_KEY"
+```
 
-  <Expandable title="Sender Object Details">
-    <ResponseField name="id" type="string">
-      The unique identifier for the sender.
-    </ResponseField>
+```javascript Node.js
+const params = new URLSearchParams({
+  page: "1",
+  limit: "50",
+  sortBy: "balance",
+  sortDirection: "desc",
+});
 
-    <ResponseField name="name" type="string">
-      The alphanumeric label or short code.
-    </ResponseField>
+const response = await fetch(`https://api.gliiv.com/v1/api/senders?${params}`, {
+  headers: { "x-api-key": process.env.GLIIV_API_KEY },
+});
 
-    <ResponseField name="balance" type="number">
-      The specific credit balance allocated to this sender.
-    </ResponseField>
+console.log(response.status, await response.json());
+```
 
-    <ResponseField name="user" type="object">
-      Information about the owner of the sender identity.
+```python Python
+import os
+import requests
 
-      <Expandable title="User Details">
-        <ResponseField name="name" type="string">
-          The name of the user.
-        </ResponseField>
+response = requests.get(
+    "https://api.gliiv.com/v1/api/senders",
+    headers={"x-api-key": os.environ["GLIIV_API_KEY"]},
+    params={"page": 1, "limit": 50, "sortBy": "balance", "sortDirection": "desc"},
+)
 
-        <ResponseField name="id" type="string">
-          The unique identifier of the user.
-        </ResponseField>
-      </Expandable>
-    </ResponseField>
+print(response.status_code, response.json())
+```
 
-    <ResponseField name="createdAt" type="string">
-      The ISO 8601 timestamp of creation.
-    </ResponseField>
-
-    <ResponseField name="updatedAt" type="string">
-      The ISO 8601 timestamp of the last update.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="total" type="number">
-  The total count of sender identities available.
-</ResponseField>
+</RequestExample>
 
 <ResponseExample>
 
 ```json 200
 {
-    "senders": [
-        {
-            "id": "<string>",
-            "name": "<string>",
-            "balance": "<number>",
-            "user": {
-                "name": "<string>",
-                "id": "<string>"
-            },
-            "createdAt": "<string>",
-            "updatedAt": "<string>"
-        }
-        "..."
-    ],
-    "total": "<number>"
+  "senders": [
+    {
+      "id": "6650f1c2a9e4b7d3c1a2b3c4",
+      "name": "GLIIV",
+      "balance": 1250,
+      "user": {
+        "name": "Gliiv User",
+        "id": "6650e8b1f2c3d4a5b6c7d8e9"
+      },
+      "createdAt": "2026-11-09T08:15:00.000Z",
+      "updatedAt": "2026-11-14T13:42:10.000Z"
+    },
+    {
+      "id": "6650f1c2a9e4b7d3c1a2b3c5",
+      "name": "SCHOOL",
+      "balance": 300,
+      "user": {
+        "name": "Gliiv User",
+        "id": "6650e8b1f2c3d4a5b6c7d8e9"
+      },
+      "createdAt": "2026-10-05T07:30:00.000Z",
+      "updatedAt": "2026-11-10T09:05:44.000Z"
+    }
+  ],
+  "total": 2
 }
 ```
 
@@ -115,11 +112,84 @@ This endpoint returns a list of sender IDs—such as alphanumeric names or regis
 }
 ```
 
+```json 429
+{
+  "message": "Too many requests",
+  "status": 429
+}
+```
+
 ```json 500
 {
-    "message": "Internal server error",
-    "status": 500
+  "message": "Internal server error",
+  "status": 500
 }
 ```
 
 </ResponseExample>
+
+## Response
+
+<ResponseField name="senders" type="object[]">
+  The Senders on this page.
+
+  <Expandable title="Sender object">
+    <ResponseField name="id" type="string">
+      The Sender's unique ID. Use it as `senderId` when sending messages.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      The name recipients see as the message source, for example `GLIIV`.
+    </ResponseField>
+
+    <ResponseField name="balance" type="number">
+      The Sender's credit balance. One SMS to one recipient costs 1 credit.
+    </ResponseField>
+
+    <ResponseField name="user" type="object">
+      The account that owns the Sender, shown as **Owner** in the dashboard.
+
+      <Expandable title="properties">
+        <ResponseField name="name" type="string">
+          The owner's name.
+        </ResponseField>
+
+        <ResponseField name="id" type="string">
+          The owner's unique ID.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="createdAt" type="string">
+      When the Sender was created.
+    </ResponseField>
+
+    <ResponseField name="updatedAt" type="string">
+      When the Sender was last changed, for example after a balance update.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="total" type="number">
+  The total number of Senders on your account, across all pages.
+</ResponseField>
+
+## Dates and times
+
+`createdAt` and `updatedAt` are in **UTC**, in ISO 8601 format with a `Z` at the end. The dashboard shows the same moments in Rwanda time (UTC+02:00), so `2026-11-09T08:15:00.000Z` appears there as **9 Nov 2026, 10:15**.
+
+## Pagination
+
+To get every Sender, keep requesting the next `page` until you've received `total` Senders. The number of pages is `total ÷ limit`, rounded up.
+
+<Tip>
+  Most accounts have only a few Senders, so the default `limit` of 50 usually returns all of them in one request.
+</Tip>
+
+## Errors
+
+| Status | Meaning | What to do |
+| :-- | :-- | :-- |
+| `401` | The API key is missing, invalid, expired, rotated or deleted. | Check the `x-api-key` header and the key in **Settings → API Keys**. |
+| `429` | You've sent more than 60 requests in a minute with this key. | Wait the number of seconds in the `Retry-After` header, then try again. |
+| `500` | Something went wrong on Gliiv's side. | Wait a moment and try again. If it keeps happening, contact [hello@gliiv.com](mailto:hello@gliiv.com). |

@@ -9,27 +9,45 @@ keywords:
   - "SMS platform new features"
 ---
 
-<Update label="November 2026" description="v1.1.0">
+New features, improvements and fixes to Gliiv, newest first.
+
+<Update label="15 November 2026" description="Dashboard and API documentation">
   ## New
 
-  - **Linked accounts** – see your connected Google and GitHub accounts under Profile → Settings
-  - **API key rotation** – rotate your API keys from the dashboard
-  - **Reschedule campaigns** – change the date of a scheduled campaign
-  - **Email preferences** – choose which emails you receive
-  - **New email notifications** – welcome email, plus emails when a campaign is cancelled or an API key is created, rotated, revoked or deleted
+  - **Rwanda time in the header.** The dashboard header now shows the current time in Rwanda time (CAT, UTC+02:00). Every time in the dashboard, including campaign schedules, creation dates and API key expiry, uses this time zone.
+  - **Actions menu on Senders.** Each Sender in the Senders tab now has a **⋯** button in the Actions column with **View details**, **Adjust balance** and **Edit sender**. To find a Sender's ID, open **⋯ → View details**. Clicking the row no longer opens the details.
+  - **Rate limit headers.** API responses now include `RateLimit-*` and `X-RateLimit-*` headers showing how many requests you have left, and `429` responses include a `Retry-After` header.
 
   ## Improved
 
-  - SMS segments are now counted accurately for messages with emojis and other special characters
-  - Refreshed campaign update emails and notifications UI
-  - If you use an authenticator app, it's now the first 2FA method
-  - Stronger 2FA email safeguards and a smoother OTP input
-  - Clearer error page when Google or GitHub sign-in fails
-  - Accessibility improvements across buttons and actions
+  - **Documentation.** The docs have been rewritten with complete request examples in cURL, Node.js and Python, the full base URL (`https://api.gliiv.com/v1/api`), and new pages for errors and rate limits.
+  - **Timestamps.** API dates such as `createdAt` and `updatedAt` are documented as UTC in ISO 8601 format, for example `2026-11-15T10:39:00.000Z`.
 
   ## Fixed
 
-  - Logout glitch
-  - Autofocus in sheets and dialogs
-  - Failed campaigns now always include a failure code (`SYSTEM_ERROR` when no specific reason applies)
+  - The Quickstart example used the wrong field name for recipients. The correct field is `phoneNumbers`.
+</Update>
+
+<Update label="November 2026" description="v1.1.0">
+  ## New
+
+  - **Linked accounts.** See which Google and GitHub accounts are connected to your profile in **Profile → Settings**.
+  - **API key rotation.** Rotate an API key from **Settings → API Keys**. Rotating gives you a new key and disables the old one immediately.
+  - **Reschedule campaigns.** Change the date of a scheduled campaign before it's sent.
+  - **Email preferences.** Choose which emails Gliiv sends you.
+  - **New email notifications.** A welcome email when you sign up, plus emails when a campaign is cancelled and when an API key is created, rotated, revoked or deleted.
+
+  ## Improved
+
+  - **SMS counting.** Messages with emoji and other special characters are now split into SMS more accurately, so the counter matches what you're charged.
+  - **Campaign emails and notifications.** Campaign update emails and the in-app notifications have a clearer design.
+  - **Two-factor authentication.** An authenticator app is now the first 2FA option offered. Email codes have stronger safeguards, and entering a code is smoother.
+  - **Sign-in errors.** The page shown when Google or GitHub sign-in fails now explains what went wrong more clearly.
+  - **Accessibility.** Buttons and actions across the dashboard work better with keyboards and screen readers.
+
+  ## Fixed
+
+  - **Failure codes.** Failed campaigns now always show a failure code. When no specific reason applies, the code is `SYSTEM_ERROR`.
+  - Logging out sometimes didn't complete correctly.
+  - The cursor didn't always land in the first field when opening a side panel or dialog.
 </Update>
