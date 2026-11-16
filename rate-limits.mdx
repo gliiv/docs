@@ -47,8 +47,7 @@ Once you've used all your requests for the window, the API responds with `429 To
 
 ```json 429 Too Many Requests
 {
-  "message": "Too many requests",
-  "status": 429
+  "message": "Too many requests"
 }
 ```
 
@@ -63,6 +62,6 @@ Wait that many seconds, then send the request again. Requests that get a `429` a
 ## Staying under the limit
 
 - **Watch `RateLimit-Remaining`.** When it gets close to `0`, pause until `RateLimit-Reset` seconds have passed.
-- **Queue messages in busy moments.** If your app can produce bursts, for example many sign-ups at once, send through a queue that releases one or two requests per second instead of all at once.
-- **Combine when you can.** If several people need the same message at the same time, send it in one request with up to 20 numbers.
-- \*\*Don't
+- **Spread requests out.** Instead of sending 60 requests in the first second, send about one per second.
+- **Use all 20 slots.** Put up to 20 phone numbers in each send request instead of one request per number.
+- **Don't retry right away.** Retrying a `429` immediately only uses up the next window. Always wait for `Retry-After`.
