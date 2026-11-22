@@ -3,17 +3,13 @@
   "name": "Gliiv Docs",
   "description": "Comprehensive developer documentation and user guides for Gliiv. Learn how to configure SMS campaigns, manage senders, upload personalized customer data, and integrate our robust messaging APIs.",
   "colors": {
-    "primary": "#415a77",
-    "light": "#415A77",
-    "dark": "#647991"
+    "primary": "#415a77"
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
+  "logo": "/logo/light.svg",
   "favicon": "/favicon.ico",
   "appearance": {
-    "default": "light"
+    "default": "light",
+    "strict": true
   },
   "footer": {
     "socials": {
