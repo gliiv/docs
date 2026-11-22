@@ -1,14 +1,13 @@
 ---
 title: "List All Senders"
 api: "GET https://api.gliiv.com/v1/api/senders"
-description: "Retrieve a list of all sender identities associated with your account."
 ---
 
 This endpoint returns a list of all sender IDs—such as alphanumeric names or registered short codes—that are authorized for use on your account.
 
 ### Headers
 
-<ParamField header="X-API-Key" type="string" placeholder="gliiv_xxxxxxxxxxxxxxxx" required>
+<ParamField header="X-API-Key" type="string" required placeholder="gliiv_xxxxxxxxxxxxxxxx">
   Your secret API key used to authenticate the request.
 </ParamField>
 
@@ -16,21 +15,21 @@ This endpoint returns a list of all sender IDs—such as alphanumeric names or r
 
 <ParamField query="sortBy" type="string" required={false}>
   The field used to sort the results.
-  
-  *Choices:* `balance`, `createdAt`
+
+  _Choices:_ `balance`, `createdAt`
 </ParamField>
 
 <ParamField query="sortDirection" type="string" required={false}>
   The direction of the sort.
-  
-  *Choices:* `asc`, `desc`
+
+  _Choices:_ `asc`, `desc`
 </ParamField>
 
-<ParamField query="page" type="number" default={1} required={false}>
+<ParamField query="page" default={1} type="number" required={false}>
   The page number to retrieve for pagination.
 </ParamField>
 
-<ParamField query="limit" type="number" default={50} required={false}>
+<ParamField query="limit" default={50} type="number" required={false}>
   The number of sender records to return per page.
 </ParamField>
 
@@ -38,30 +37,38 @@ This endpoint returns a list of all sender IDs—such as alphanumeric names or r
 
 <ResponseField name="senders" type="object[]">
   An array of authorized sender objects.
+
   <Expandable title="Sender Object Details">
     <ResponseField name="id" type="string">
       The unique identifier for the sender.
     </ResponseField>
+
     <ResponseField name="name" type="string">
       The alphanumeric label or short code.
     </ResponseField>
+
     <ResponseField name="balance" type="number">
       The specific credit balance allocated to this sender.
     </ResponseField>
+
     <ResponseField name="user" type="object">
       Information about the owner of the sender identity.
+
       <Expandable title="User Details">
         <ResponseField name="name" type="string">
           The name of the user.
         </ResponseField>
+
         <ResponseField name="id" type="string">
           The unique identifier of the user.
         </ResponseField>
       </Expandable>
     </ResponseField>
+
     <ResponseField name="createdAt" type="string">
       The ISO 8601 timestamp of creation.
     </ResponseField>
+
     <ResponseField name="updatedAt" type="string">
       The ISO 8601 timestamp of the last update.
     </ResponseField>
@@ -92,7 +99,6 @@ This endpoint returns a list of all sender IDs—such as alphanumeric names or r
     ],
     "total": "<number>"
 }
-
 ```
 
 ```json 401
@@ -100,7 +106,6 @@ This endpoint returns a list of all sender IDs—such as alphanumeric names or r
   "message": "Authentication required",
   "status": 401
 }
-
 ```
 
 ```json 500
@@ -108,7 +113,6 @@ This endpoint returns a list of all sender IDs—such as alphanumeric names or r
     "message": "Internal server error",
     "status": 500
 }
-
 ```
 
 </ResponseExample>

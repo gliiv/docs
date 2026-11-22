@@ -1,6 +1,6 @@
 ---
-title: "Authentication"
-description: "Secure your API requests using API Keys."
+title: "Gliiv API Authentication: Managing Secret API Keys"
+description: "Secure your programmatic bulk SMS requests. Learn how to securely generate, store, and authorize API headers using your unique x-api-key credential."
 ---
 
 The Gliiv API uses API keys to authenticate requests. This ensures that every message sent programmatically is authorized and linked to your specific account.
@@ -40,6 +40,6 @@ Content-Type: application/json
 
 ## Security Best Practices
 
-* **Server-Side Only:** Never expose your `x-api-key` in client-side code, frontend JavaScript, or public repositories.
-* **Storage:** Store your key securely using environment variables or a secrets management service.
-* **Replacement:** If you suspect your key has been compromised, revoke it immediately in the dashboard and generate a replacement.
+- **Server-Side Only:** Never expose your `x-api-key` in client-side code, frontend JavaScript, or public repositories.
+- **Storage:** Store your key securely using environment variables or a secrets management service.
+- **Replacement:** If you suspect your key has been compromised, revoke it immediately in the dashboard and generate a replacement.
