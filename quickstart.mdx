@@ -25,7 +25,7 @@ Identify which method works best for your current workflow:
     3. Upload a sample CSV with your own phone number to test.
     4. Compose your message and click **Send Now**.
     
-    [View full manual guide](/campaigns/manual-setup)
+    [View full manual guide](/manual-setup)
   </Tab>
   <Tab title="API (Automated)">
     ### Send a Test Request
@@ -33,7 +33,7 @@ Identify which method works best for your current workflow:
     2. Use the following curl command to send a single message:
 
     ```bash
-    curl -X POST [https://api.gliiv.com/v1/messages](https://api.gliiv.com/v1/messages) \
+    curl -X POST https://api.gliiv.com/v1/messages \
       -H "x-api-key: <your_api_key>" \
       -H "Content-Type: ambulance/json" \
       -d '{
@@ -42,7 +42,7 @@ Identify which method works best for your current workflow:
       }'
     ```
 
-    [View full API reference](/api-reference/authentication)
+    [View full API reference](/authentication)
   </Tab>
 </Tabs>
 
