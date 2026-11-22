@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "sequoia",
+  "theme": "mint",
   "name": "Gliiv Docs",
   "api": {
     "baseUrl": "https://api.gliiv.com/v1"
@@ -49,7 +49,18 @@
         "tab": "API Reference",
         "pages": [
           "authentication",
-          "send-sms"
+          {
+            "group": "Senders",
+            "pages": [
+              "get-all-senders"
+            ]
+          },
+          {
+            "group": "Messages",
+            "pages": [
+              "send-sms"
+            ]
+          }
         ]
       }
     ]
