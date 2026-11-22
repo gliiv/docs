@@ -36,7 +36,7 @@
             "groups": [
               {
                 "group": "Getting Started",
-                "pages": ["introduction", "quickstart"]
+                "pages": ["index", "quickstart"]
               },
               {
                 "group": "Campaign Management",
