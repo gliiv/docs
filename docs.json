@@ -1,15 +1,53 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Gliiv Docs",
+  "description": "Comprehensive developer documentation and user guides for Gliiv. Learn how to configure SMS campaigns, manage senders, upload personalized customer data, and integrate our robust messaging APIs.",
   "colors": {
     "primary": "#415a77",
     "light": "#647991",
     "dark": "#647991"
   },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
   "favicon": "/favicon.ico",
   "appearance": {
     "default": "light"
+  },
+  "background": {
+    "decoration": "windows"
+  },
+  "footer": {
+    "socials": {
+      "website": "https://www.gliiv.com"
+    }
+  },
+  "search": {
+    "prompt": "Search the docs..."
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://www.gliiv.com/docs",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "The API references and technical guides needed to integrate our bulk SMS engine",
+      "keywords": "Gliiv, bulk SMS, SMS API, developer documentation, SMS integration",
+      "author": "Gliiv",
+      "robots": "index, follow",
+      "googlebot": "index, follow",
+      "theme-color": "#1A1A1A",
+      "color-scheme": "dark light",
+      "og:title": "Gliiv Docs",
+      "og:url": "https://www.gliiv.com/docs",
+      "og:image": "/images/og-image.png",
+      "og:description": "The API references and technical guides needed to integrate our bulk SMS engine",
+      "og:locale": "en_US",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Gliiv Docs",
+      "twitter:description": "The API references and technical guides needed to integrate our bulk SMS engine.",
+      "twitter:image": "/images/og-image.png"
+    },
+    "indexing": "navigable"
   },
   "fonts": {
     "heading": {
@@ -23,24 +61,42 @@
   "icons": {
     "library": "lucide"
   },
-  "background": {
-    "decoration": "windows"
+  "contextual": {
+    "options": [
+      "claude",
+      "chatgpt",
+      "cursor",
+      "copy"
+    ],
+    "display": "header"
+  },
+  "metadata": {
+    "timestamp": true
+  },
+  "variables": {
+    "api_url": "https://api.gliiv.com/v1/api"
   },
   "navigation": {
     "versions": [
       {
         "version": "v1",
+        "default": true,
         "tabs": [
           {
             "tab": "Guides",
             "groups": [
               {
                 "group": "Getting Started",
-                "pages": ["index", "quickstart"]
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
               },
               {
                 "group": "Campaign Management",
-                "pages": ["create-campaign"]
+                "pages": [
+                  "create-campaign"
+                ]
               }
             ]
           },
@@ -50,67 +106,21 @@
               "authentication",
               {
                 "group": "Senders",
-                "pages": ["list-senders", "get-sender"]
+                "pages": [
+                  "list-senders",
+                  "get-sender"
+                ]
               },
               {
                 "group": "Messages",
-                "pages": ["send-sms"]
+                "pages": [
+                  "send-sms"
+                ]
               }
             ]
           }
-        ],
-        "default": true
+        ]
       }
     ]
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "contextual": {
-    "options": [
-      "claude",
-      "chatgpt",
-      "cursor",
-      "copy",
-      "vscode""]
-  },
-  "footer": {
-    "socials": {
-      "website": "https://www.gliiv.com"
-    }
-  },
-  "seo": {
-    "indexing": "navigable",
-    "metatags": {
-      "canonical": "https://www.gliiv.com/docs",
-      "viewport": "width=device-width, initial-scale=1.0",
-      "description": "The API references and technical guides needed to integrate our bulk SMS engine",
-      "keywords": "Gliiv, bulk SMS, SMS API, developer documentation, SMS integration",
-      "author": "Gliiv",
-      "robots": "index, follow",
-      "googlebot": "index, follow",
-      "theme-color": "#1A1A1A",
-      "color-scheme": "dark light",
-
-      "og:title": "Gliiv Docs",
-      "og:url": "https://www.gliiv.com/docs",
-      "og:image": "/images/og-image.png",
-      "og:description": "The API references and technical guides needed to integrate our bulk SMS engine",
-      "og:locale": "en_US",
-
-      "twitter:card": "summary_large_image",
-      "twitter:title": "Gliiv Docs",
-      "twitter:description": "The API references and technical guides needed to integrate our bulk SMS engine.",
-      "twitter:image": "/images/og-image.png"
-    }
-  },
-  "search": { "prompt": "Search the docs..." },
-  "metadata": {
-    "timestamp": true
-  },
-  "variables": {
-    "api_url": "https://api.gliiv.com/v1/api"
-  },
-  "description": "Comprehensive developer documentation and user guides for Gliiv. Learn how to configure SMS campaigns, manage senders, upload personalized customer data, and integrate our robust messaging APIs."
+  }
 }
