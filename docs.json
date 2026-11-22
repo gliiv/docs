@@ -35,16 +35,11 @@
             "groups": [
               {
                 "group": "Getting Started",
-                "pages": [
-                  "introduction",
-                  "quickstart"
-                ]
+                "pages": ["introduction", "quickstart"]
               },
               {
                 "group": "Campaign Management",
-                "pages": [
-                  "manual-setup"
-                ]
+                "pages": ["manual-setup"]
               }
             ]
           },
@@ -54,15 +49,11 @@
               "authentication",
               {
                 "group": "Senders",
-                "pages": [
-                  "get-all-senders"
-                ]
+                "pages": ["list-all-senders", "get-sender"]
               },
               {
                 "group": "Messages",
-                "pages": [
-                  "send-sms"
-                ]
+                "pages": ["send-sms"]
               }
             ]
           }
@@ -76,13 +67,7 @@
     "dark": "/logo/dark.svg"
   },
   "contextual": {
-    "options": [
-      "claude",
-      "chatgpt",
-      "cursor",
-      "copy",
-      "view"
-    ]
+    "options": ["claude", "chatgpt", "cursor", "copy", "view"]
   },
   "footer": {
     "socials": {
@@ -93,6 +78,6 @@
     "indexing": "all"
   },
   "variables": {
-    "api-url": "https://api.gliiv.com/v1"
+    "api_url": "https://api.gliiv.com/v1/api"
   }
 }
