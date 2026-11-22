@@ -123,5 +123,12 @@
         ]
       }
     ]
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "Lost in Transit",
+      "description": "This page could not be found. Head back to our [Quickstart](/quickstart) to get your setup running or explore the [API Reference](/authentication) to clear your requests."
+    }
   }
 }
