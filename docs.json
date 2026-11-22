@@ -68,42 +68,46 @@
     "api_url": "https://api.gliiv.com/v1/api"
   },
   "navigation": {
-    "versions": [
+    "tabs": [
       {
-        "version": "v1",
-        "default": true,
-        "tabs": [
+        "tab": "Guides",
+        "groups": [
           {
-            "tab": "Guides",
-            "groups": [
-              {
-                "group": "Getting Started",
-                "pages": ["index", "quickstart"]
-              },
-              {
-                "group": "Campaign Management",
-                "pages": ["create-campaign"]
-              },
-              {
-                "group": "Updates",
-                "pages": [
-                  "changelog"
-                ]
-              }
+            "group": "Getting Started",
+            "pages": [
+              "index",
+              "quickstart"
             ]
           },
           {
-            "tab": "API Reference",
+            "group": "Campaign Management",
             "pages": [
-              "authentication",
-              {
-                "group": "Senders",
-                "pages": ["list-senders", "get-sender"]
-              },
-              {
-                "group": "Messages",
-                "pages": ["send-sms"]
-              }
+              "create-campaign"
+            ]
+          },
+          {
+            "group": "Updates",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "pages": [
+          "authentication",
+          {
+            "group": "Senders",
+            "pages": [
+              "list-senders",
+              "get-sender"
+            ]
+          },
+          {
+            "group": "Messages",
+            "pages": [
+              "send-sms"
             ]
           }
         ]
