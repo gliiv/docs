@@ -2,9 +2,6 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Gliiv Docs",
-  "api": {
-    "baseUrl": "https://api.gliiv.com/v1"
-  },
   "colors": {
     "primary": "#415a77",
     "light": "#647991",
@@ -15,8 +12,13 @@
     "default": "light"
   },
   "fonts": {
-    "family": "Nunito Sans",
-    "weight": 400
+    "heading": {
+      "family": "Nunito Sans",
+      "weight": 750
+    },
+    "body": {
+      "family": "Nunito Sans"
+    }
   },
   "icons": {
     "library": "lucide"
@@ -24,7 +26,6 @@
   "background": {
     "decoration": "windows"
   },
-  "thumbnails": { "appearance": "light", "fonts": { "family": "Nunito Sans" } },
   "navigation": {
     "versions": [
       {
@@ -77,8 +78,31 @@
   "seo": {
     "indexing": "navigable",
     "metatags": {
-      "og:image": "/images/og-image.png"
+      "canonical": "https://www.gliiv.com/docs",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "The API references and technical guides needed to integrate our bulk SMS engine",
+      "keywords": "Gliiv, bulk SMS, SMS API, developer documentation, SMS integration",
+      "author": "Gliiv",
+      "robots": "index, follow",
+      "googlebot": "index, follow",
+      "theme-color": "#1A1A1A",
+      "color-scheme": "dark light",
+
+      "og:title": "Gliiv Docs",
+      "og:url": "https://www.gliiv.com/docs",
+      "og:image": "/images/og-image.png",
+      "og:description": "The API references and technical guides needed to integrate our bulk SMS engine",
+      "og:locale": "en_US",
+
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Gliiv Docs",
+      "twitter:description": "The API references and technical guides needed to integrate our bulk SMS engine.",
+      "twitter:image": "/images/og-image.png"
     }
+  },
+  "search": { "prompt": "Search the docs..." },
+  "metadata": {
+    "timestamp": true
   },
   "variables": {
     "api_url": "https://api.gliiv.com/v1/api"
