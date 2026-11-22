@@ -1,7 +1,10 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "sequoia",
   "name": "Gliiv Docs",
+  "api": {
+    "baseUrl": "https://api.gliiv.com/v1"
+  },
   "colors": {
     "primary": "#415a77",
     "light": "#415a77",
