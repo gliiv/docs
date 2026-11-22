@@ -1,7 +1,6 @@
 ---
-
 title: "Send SMS"
-api: "POST [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send)"
+api: "POST https://api.gliiv.com/v1/messages/send"
 description: "Send high-priority single or bulk messages via the Gliiv gateway."
 ---
 
@@ -28,7 +27,8 @@ The `/send` endpoint allows you to programmatically dispatch messages to Rwandan
 <ParamField body="senderId" type="string" required>
   The unique ID of your approved Sender identity.
   
-  **How to obtain:** 1. Go to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
+  **How to obtain:**
+  1. Go to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
   2. Click to preview the details of the specific sender you wish to use.
   3. Copy the **Sender ID** using the provided copy button.
 </ParamField>
