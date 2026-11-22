@@ -40,17 +40,72 @@ The **Message** field is where you define your SMS content.
   </CodeGroup>
 </Tip>
 
-<Card title="How Credits are Charged" icon="calculator">
-  Credits are consumed based on the total character count of your message. The system uses a strict **160-character increment** to determine the cost per recipient:
+### How credits are charged
 
-  - **1 to 160 characters** = 1 Credit
-  - **161 to 320 characters** = 2 Credits
-  - **321 to 480 characters** = 3 Credits
-  - **481 to 640 characters** = 4 Credits
-  - **641 to 800 characters** = 5 Credits
+Each SMS costs **1 credit per recipient**. Short messages fit in one SMS. Longer messages are split into several SMS behind the scenes, but your contact still receives them as **one message**.
 
-  **Note:** Every additional character that pushes your message beyond a 160-limit threshold will immediately trigger an additional credit charge. The maximum allowed length for a single message is **800 characters**.
-</Card>
+Under the **Message** box you'll see a live counter, for example `103 characters · 1 SMS`. That number is what each recipient will cost.
+
+<Tabs>
+  <Tab title="Normal text">
+    Letters, numbers and common punctuation.
+
+    | Message length | Credits per recipient |
+    | :-- | :-- |
+    | 1 – 160 characters | 1 |
+    | 161 – 306 characters | 2 |
+    | 307 – 459 characters | 3 |
+    | 460 – 612 characters | 4 |
+    | 613 – 765 characters | 5 |
+    | 766 – 800 characters | 6 |
+  </Tab>
+  <Tab title="With special characters">
+    Applies if your message contains even **one** special character (see below).
+
+    | Message length | Credits per recipient |
+    | :-- | :-- |
+    | 1 – 70 characters | 1 |
+    | 71 – 134 characters | 2 |
+    | 135 – 201 characters | 3 |
+    | 202 – 268 characters | 4 |
+    | 269 – 335 characters | 5 |
+  </Tab>
+</Tabs>
+
+<Note>
+  Why isn't it 320 for 2 SMS? When a message is split, each part keeps a few characters to join the parts back together on the phone, so each part holds 153 characters (or 67 with special characters).
+</Note>
+
+### Special characters
+
+Some characters make each SMS hold **70 characters instead of 160**. This happens because SMS has its own standard alphabet (called GSM-7); any character outside it switches the whole message to a larger format (called Unicode). So the same message can cost more than double. When this happens, the form shows a warning under the **Message** box listing the characters.
+
+The most common ones come from copying text out of Word, Google Docs or WhatsApp:
+
+| Instead of this | Type this |
+| :-- | :-- |
+| Curly quotes `’ ‘ “ ”` | Straight quotes `' "` |
+| Long dashes `– —` | A normal hyphen `-` |
+| The ellipsis `…` | Three dots `...` |
+| Accented letters such as `á í ó ú ê ç` | The plain letter `a i o u e c` |
+| Emoji 😀 | Remove them |
+
+<Tip>
+  To avoid surprises, type your message directly in the box, or paste it into a plain-text editor first, then check the counter before you submit.
+</Tip>
+
+A few normal symbols are allowed but **count as 2 characters**: `^ { } \ [ ] ~ | €`. That includes the braces in placeholders, so `{{name}}` counts as 12 characters before it's filled in.
+
+<Note>
+  For personalized messages, the count is based on each contact's message **after** the placeholders are filled in. A long name or amount can push one contact's message into an extra SMS.
+</Note>
+
+The maximum length for a single message is **800 characters**.
+
+#### Further reading
+
+1. <a href="https://en.wikipedia.org/wiki/Concatenated_SMS" target="_blank" rel="noopener noreferrer">Concatenated SMS (Wikipedia)</a>: how long messages are split and joined back together.
+2. <a href="https://en.wikipedia.org/wiki/GSM_03.38" target="_blank" rel="noopener noreferrer">GSM 03.38 (Wikipedia)</a>: the full list of standard SMS characters and which ones count as 2.
 
 ---
 
@@ -99,7 +154,7 @@ Monitor your campaign's lifecycle in the **Campaigns** tab.
 
 | Status | Description |
 | :-- | :-- |
-| <span style={{color: '#3182CE'}}>**STAGED**</span> | The system is validating recipients and computing segments. |
+| <span style={{color: '#3182CE'}}>**STAGED**</span> | The system is validating recipients and counting how many SMS each message needs. |
 | <span style={{color: '#805AD5'}}>**PROCESSED**</span> | Messages are generated and mapped to placeholders. |
 | <span style={{color: '#38A169'}}>**DISPATCHED**</span> | The campaign has been handed over to carriers for delivery. |
 | <span style={{color: '#DD6B20'}}>**SCHEDULED**</span> | The campaign is queued for its designated future time. |
@@ -114,5 +169,5 @@ If a campaign shows a **FAILED** status, check the detail view for these specifi
 | :-- | :-- |
 | `USER_CANCELLED` | The campaign was manually stopped by a user. |
 | `BAD_FILE_DATA` | Structural issues, incorrect encoding, or missing `phone` header in the upload. |
-| `LOW_BALANCE` | Insufficient account credits to cover the total recipient count. |
+| `LOW_BALANCE` | Insufficient account credits to cover the campaign (recipients × SMS per message). |
 | `SYSTEM_ERROR` | An internal system interruption occurred during processing. |
