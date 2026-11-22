@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Gliiv",
+  "name": "Gliiv Docs",
   "colors": {
     "primary": "#415a77",
     "light": "#415a77",
@@ -23,50 +23,33 @@
   "thumbnails": { "appearance": "light", "fonts": { "family": "Nunito Sans" } },
   "navigation": {
     "tabs": [
-      {
-        "tab": "Platform",
-        "pages": [
-          "product-overview",
-          {
-            "group": "The Message Center",
-            "pages": [
-              "index",
-              "quickstart"
-            ]
-          },
-          {
-            "group": "Campaigns",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/personalization-with-placeholders",
-              "essentials/smart-scheduling-3-hour-rule",
-              "essentials/understanding-campaign-status"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "SMS API",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
-    ]
+        {
+          "tab": "Guides",
+          "groups": [
+            {
+              "group": "Introduction",
+              "pages": ["introduction", "quickstart"]
+            },
+            {
+              "group": "Campaign Management",
+              "pages": ["campaigns/manual-setup", "campaigns/scheduling"]
+            }
+          ]
+        },
+        {
+          "tab": "API Reference",
+          "groups": [
+            {
+              "group": "Getting Started",
+              "pages": ["api-reference/authentication"]
+            },
+            {
+              "group": "Messaging",
+              "pages": ["api-reference/send-sms"]
+            }
+          ]
+        }
+      ]
   },
   "logo": {
     "light": "/logo/light.svg",
