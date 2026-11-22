@@ -51,13 +51,13 @@
   },
   "fonts": {
     "heading": {
-      "family": "Nunito Sans",
-      "source": "/fonts/nunito-sans-700.woff2",
+      "family": "NunitoSans",
+      "source": "./fonts/nunito-sans-700.woff2",
       "format": "woff2"
     },
     "body": {
-      "family": "Nunito Sans",
-      "source": "/fonts/nunito-sans-400.woff2",
+      "family": "NunitoSans",
+      "source": "./fonts/nunito-sans-400.woff2",
       "format": "woff2"
     }
   },
