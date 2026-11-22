@@ -17,7 +17,7 @@ When a request fails, the Gliiv API responds with an HTTP status code and a JSON
 {
   "message": "Invalid input provided",
   "validationErrors": {
-    "phoneNumbers": "A maximum of 20 phone numbers is allowed per request"
+    "phoneNumbers": "A maximum of 5 phone numbers is allowed per request"
   },
   "status": 400
 }
@@ -44,7 +44,7 @@ When a request fails, the Gliiv API responds with an HTTP status code and a JSON
 
 | Status | What to check |
 | :-- | :-- |
-| `400` | Read `validationErrors`. Common causes: more than 20 numbers, a non-Rwandan number, an empty or too-long `message`, or a `senderId` that isn't a valid ID. |
+| `400` | Read `validationErrors`. Common causes: more than 5 numbers, a non-Rwandan number, an empty or too-long `message`, or a `senderId` that isn't a valid ID. |
 | `401` | The header is named exactly `x-api-key`, the full key is included (starting with `gliiv_`), and the key still appears in **Settings → API Keys** without being expired. If you rotated the key, use the new one. |
 | `404` | You're sending the Sender's **ID**, not its name. Copy it again from **Senders → ⋯ → View details**. |
 | `429` | Wait the number of seconds given in the `Retry-After` response header, then send the request again. Spread requests out to stay under 60 per minute. |

@@ -27,7 +27,7 @@ The API sends immediately and doesn't support scheduling. To schedule messages, 
 ## Body
 
 <ParamField body="phoneNumbers" type="string[]" required>
-  The recipients' phone numbers, **1 to 20** per request. Rwandan numbers only, in any of these formats: `+2507XXXXXXXX`, `2507XXXXXXXX`, `07XXXXXXXX` or `7XXXXXXXX`. You can mix formats in the same request.
+  The recipients' phone numbers, **1 to 5** per request. Rwandan numbers only, in any of these formats: `+2507XXXXXXXX`, `2507XXXXXXXX`, `07XXXXXXXX` or `7XXXXXXXX`. You can mix formats in the same request.
 </ParamField>
 
 <ParamField body="message" type="string" required>
@@ -100,7 +100,7 @@ print(response.status_code, response.json())
 {
   "message": "Invalid input provided",
   "validationErrors": {
-    "phoneNumbers": "A maximum of 20 phone numbers is allowed per request"
+    "phoneNumbers": "A maximum of 5 phone numbers is allowed per request"
   },
   "status": 400
 }
@@ -171,7 +171,3 @@ A message of up to 160 standard characters is 1 SMS. Longer messages are split i
 | `404` | No Sender matches `senderId` on your account. | Copy the Sender ID again from **⋯ → View details**. |
 | `429` | You've sent more than 60 requests in a minute with this key. | Wait the number of seconds in the `Retry-After` header, then try again. |
 | `500` | Something went wrong on Gliiv's side. | Wait a moment and try again. If it keeps happening, contact [hello@gliiv.com](mailto:hello@gliiv.com). |
-
-<Tip>
-  To message more than 20 people, split the numbers into groups of 20 and send one request per group, staying within 60 requests per minute. For lists of thousands, a dashboard campaign with a file upload is easier.
-</Tip>

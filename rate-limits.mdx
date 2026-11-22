@@ -17,9 +17,9 @@ Rate limits keep the API fast and reliable for everyone by stopping any single i
 | :-- | :-- |
 | **100 requests per minute** | Each API key, across all endpoints |
 
-That's an average of about 1–2 requests per second. Every request counts once, whether it sends to 1 phone number or 20.
+That's an average of about 1–2 requests per second. Every request counts once, whether it sends to 1 phone number or 5.
 
-Most integrations send one message per request, such as a one-time password or an alert, so for them the limit works out to about **100 messages per minute**. If you send the same message to several people, putting up to 20 numbers in one request lets you reach more people within the same limit.
+Most integrations send one message per request, such as a one-time password or an alert, so for them the limit works out to about **100 messages per minute**. If you send the same message to several people, putting up to 5 phone numbers in one request lets you reach more people within the same limit.
 
 ## Rate limit headers
 
@@ -63,5 +63,5 @@ Wait that many seconds, then send the request again. Requests that get a `429` a
 
 - **Watch `RateLimit-Remaining`.** When it gets close to `0`, pause until `RateLimit-Reset` seconds have passed.
 - **Spread requests out.** Instead of sending 60 requests in the first second, send about one per second.
-- **Use all 20 slots.** Put up to 20 phone numbers in each send request instead of one request per number.
+- **Use all 5 slots.** Put up to 5 phone numbers in each send request instead of one request per number.
 - **Don't retry right away.** Retrying a `429` immediately only uses up the next window. Always wait for `Retry-After`.
