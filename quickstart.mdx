@@ -13,7 +13,8 @@ Authenticate with the platform to access your dashboard and developer tools.
   <Card title="Sign Up" icon="user-plus" href="https://www.gliiv.com/app/auth/signup">
     Create an account via Email, Google, or GitHub.
   </Card>
-  <Card title="Login" icon="log-in" href="https://app.gliiv.com">
+
+  <Card title="Login" icon="log-in" href="https://www.gliiv.com/app/auth/signin">
     Access your existing dashboard.
   </Card>
 </CardGroup>
@@ -24,10 +25,10 @@ Authenticate with the platform to access your dashboard and developer tools.
 
 A **Sender** is the identity recipients see on their phones. These must be manually assigned to your account for security compliance.
 
-1.  **Check your status:** Visit the **Senders** tab in the dashboard.
-2.  **Request a new identity:** If your list is empty, reach out to us:
-    * **Online:** Use our [Contact Form](https://www.gliiv.com/contact).
-    * **In-Person:** Contact our team directly to discuss your requirements.
+1. **Check your status:** Visit the **Senders** tab in the dashboard.
+2. **Request a new identity:** If your list is empty, reach out to us:
+   - **Online:** Use our [Contact Form](https://www.gliiv.com/contact).
+   - **In-Person:** Contact our team directly to discuss your requirements.
 
 ---
 
@@ -38,19 +39,20 @@ Once you have an approved identity in your **Senders** tab, choose your method:
 <Tabs>
   <Tab title="Dashboard (Manual)">
     ### Create a Campaign
+
     1. Navigate to **Campaigns** and click the **Create Campaign** button.
     2. Select your **Sender** name (e.g., "TEST") from the dropdown.
     3. Type your **Message**.
     4. Choose your **Recipient Input Method**:
-       * **Manual:** Paste numbers directly (one per line).
-       * **File Upload:** Upload a CSV or Excel file.
+       - **Manual:** Paste numbers directly (one per line).
+       - **File Upload:** Upload a CSV or Excel file.
     5. Click **Submit**.
-    
+
     [Full Manual Setup Guide](/manual-setup)
   </Tab>
-
   <Tab title="API (Automated)">
     ### Instant Dispatch
+
     1. **Generate API Key:** Go to [API Settings](https://www.gliiv.com/app/settings/api-key). (Save it securely; it is shown only once).
     2. **Get Sender ID:** Go to the **Senders** tab, click **Details** on your sender, and copy the hexadecimal ID.
 
@@ -65,9 +67,9 @@ Once you have an approved identity in your **Senders** tab, choose your method:
       }'
     ```
 
-    * **senderId:** This is the unique ID found in the Sender's details popup, not the display name.
-    * **Limit:** Maximum of **20 numbers** per API call.
-    * **Note:** API messages are sent instantly and do not support scheduling.
+    - **senderId:** This is the unique ID found in the Sender's details popup, not the display name.
+    - **Limit:** Maximum of **20 numbers** per API call.
+    - **Note:** API messages are sent instantly and do not support scheduling.
 
     [Full API Reference](/authentication)
   </Tab>
