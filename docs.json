@@ -52,12 +52,12 @@
   "fonts": {
     "heading": {
       "family": "NunitoSans",
-      "source": "./fonts/nunito-sans-700.woff2",
+      "source": "/docs/fonts/nunito-sans-700.woff2",
       "format": "woff2"
     },
     "body": {
       "family": "NunitoSans",
-      "source": "./fonts/nunito-sans-400.woff2",
+      "source": "/docs/fonts/nunito-sans-400.woff2",
       "format": "woff2"
     }
   },
