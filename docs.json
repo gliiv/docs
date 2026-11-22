@@ -104,7 +104,14 @@
       {
         "tab": "API Reference",
         "pages": [
-          "authentication",
+          {
+            "group": "Overview",
+            "pages": [
+              "authentication",
+              "errors",
+              "rate-limits"
+            ]
+          },
           {
             "group": "Senders",
             "pages": [

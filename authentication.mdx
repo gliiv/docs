@@ -9,46 +9,124 @@ keywords:
   - "secure SMS API"
 ---
 
-The Gliiv API uses API keys to authenticate requests. This ensures that every message sent programmatically is authorized and linked to your specific account.
+Every request to the Gliiv API must include an **API key**. Gliiv uses it to identify your account and to make sure only you can send messages from your Senders.
 
-## Obtaining your API Key
+All API requests go to this base URL:
 
-To get started, generate a unique key from your account dashboard. You can create up to **3 API keys** per account.
+```text Base URL
+https://api.gliiv.com/v1/api
+```
 
-1. Navigate to the [API Settings](https://www.gliiv.com/app/settings/api-key) page.
-2. Click the **Create Key** button to open the configuration modal.
-3. Configure your key settings (optional):
-   - **Name:** Give your key a descriptive label (defaults to `"API Key"` if left blank).
-   - **Expires at:** Select an expiration date and time (defaults to **Never / Valid forever** if left blank).
-4. Click submit, then **copy and save your generated key immediately**.
+## 1. Create an API key
+
+Go to **Settings → API Keys** ([open it](https://www.gliiv.com/app/settings/api-key)) and click **Create Key**.
+
+- **Name** (required): a label to tell your keys apart, for example `Production server` or `Staging`.
+- **Expiry date** (optional): the date the key stops working. Leave it empty for a key that never expires.
+
+API keys look like this:
+
+```text API key format
+gliiv_xxxxxxxxxxxxxxxx
+```
 
 <Warning>
-  **Important:** API keys are displayed **only once** at the time of creation. For security reasons, Gliiv does not store unencrypted keys and cannot retrieve them after you leave or refresh the page. If a key is lost or compromised, you must delete it and generate a new one.
+  The key is shown **only once**. Copy it straight away and store it somewhere safe. If you leave or refresh the page, you can't see it again, and you'll have to create a new one.
 </Warning>
 
-## Header Authentication
+Each account can have up to **3 API keys** at a time. Using a separate key for each environment or server lets you replace one without affecting the others.
 
-All API requests must include the `x-api-key` header. Requests that omit this header or provide an invalid key will be rejected with a `401 Unauthorized` response.
+## 2. Send the key with each request
 
-### Header Specification
+Put the key in the `x-api-key` header of every request. Requests with a body also need `Content-Type: application/json`.
 
-<ResponseField name="x-api-key" type="string" required>
-  Your secret API key (formatted as `gliiv_xxxxxxxxxxxxxxxx`).
-</ResponseField>
-
-### Example Header
-
-Your request headers should be structured as follows:
-
-```http
+```text Headers
 x-api-key: gliiv_xxxxxxxxxxxxxxxx
 Content-Type: application/json
 ```
 
----
+To check that your key works, list your Senders. The request below returns your Senders if the key is valid.
 
-## Security Best Practices
+<CodeGroup>
 
-- **Server-Side Only:** Never expose your `x-api-key` in client-side code, frontend JavaScript, or public repositories.
-- **Storage:** Store your key securely using environment variables or a secrets management service.
-- **Replacement:** If you suspect your key has been compromised, revoke it immediately in the dashboard and generate a replacement.
+```bash cURL
+curl https://api.gliiv.com/v1/api/senders \
+  -H "x-api-key: $GLIIV_API_KEY"
+```
+
+```javascript Node.js
+const response = await fetch("https://api.gliiv.com/v1/api/senders", {
+  headers: { "x-api-key": process.env.GLIIV_API_KEY },
+});
+
+console.log(response.status, await response.json());
+```
+
+```python Python
+import os
+import requests
+
+response = requests.get(
+    "https://api.gliiv.com/v1/api/senders",
+    headers={"x-api-key": os.environ["GLIIV_API_KEY"]},
+)
+
+print(response.status_code, response.json())
+```
+
+</CodeGroup>
+
+<Tip>
+  Store the key in an environment variable such as `GLIIV_API_KEY` instead of writing it in your code. That way it never ends up in your Git history.
+</Tip>
+
+## 3. Authentication errors
+
+If the key is missing, wrong, expired, rotated or deleted, the API responds with `401 Unauthorized`:
+
+```json 401 Unauthorized
+{
+  "message": "Authentication required",
+  "status": 401
+}
+```
+
+When you get a `401`, check that:
+
+- The header is named exactly `x-api-key`.
+- The full key is included, starting with `gliiv_`.
+- The key still appears in **Settings → API Keys** and hasn't expired.
+- You're not using an old key that was rotated.
+
+## 4. Expiry
+
+A key with an expiry date stops working as soon as that date is reached, and every request made with it returns `401`. The expiry date is shown in **Rwanda time (CAT, UTC+02:00)**, like every time in the dashboard.
+
+<Tip>
+  Create the replacement key before the old one expires, update your servers, then let the old key expire. Your integration keeps working with no gap.
+</Tip>
+
+## 5. Rotate a key
+
+Rotating gives you a new key value and **immediately disables the old one**. There's no grace period, so any server still using the old key gets `401` errors from that moment.
+
+To rotate without downtime:
+
+1. Have your new key ready to paste before you start.
+2. Rotate the key in **Settings → API Keys**, and copy the new value.
+3. Update the key on your servers right away and restart them if needed.
+
+<Note>
+  If you can't update every server at the same moment, create a **second key** instead. Move your servers to it one by one, then delete the old key. Since you can have up to 3 keys, both work during the switch.
+</Note>
+
+Gliiv emails you whenever a key is created, rotated, revoked or deleted. If you receive one of these emails and didn't make the change, rotate or delete your keys straight away.
+
+## 6. Keep your keys safe
+
+Your API key can send messages and spend your credits, so treat it like a password.
+
+- **Use it on your server only.** Never put it in a website, mobile app or any code that runs on a user's device, where anyone can read it.
+- **Keep it out of your code.** Use environment variables or a secrets manager, and never commit keys to Git.
+- **One key per environment.** Separate keys for production and testing limit the damage if one leaks.
+- **Act fast if a key leaks.** Rotate or delete it in **Settings → API Keys** straight away, then create a replacement.

@@ -10,79 +10,76 @@ keywords:
   - "alphanumeric sender data"
 ---
 
-This endpoint returns the full details of a single sender identity, including its current balance and ownership information.
+Returns a single Sender, including its current credit balance. Use it to check the balance before sending a large batch, or to confirm that a `senderId` is valid.
 
-### Path Parameters
+## Headers
 
-<ParamField path="senderId" type="string" required placeholder="6a03469dbed1ebe90950e973">
-  The unique identifier of the sender you want to retrieve.
+<ParamField header="x-api-key" type="string" required>
+  Your API key, for example `gliiv_xxxxxxxxxxxxxxxx`. Create one in **Settings → API Keys**.
 </ParamField>
 
-### Headers
+## Path parameters
 
-<ParamField header="x-api-key" type="string" required placeholder="gliiv_xxxxxxxxxxxxxxxx">
-  Your secret API key used to authenticate the request.
+<ParamField path="senderId" type="string" required>
+  The Sender's ID. In the dashboard, open **Senders**, click **⋯** in the Actions column, and choose **View details**. You can also get it from the List senders endpoint.
 </ParamField>
 
-### Response Body
+<RequestExample>
 
-<ResponseField name="id" type="string">
-  The unique identifier for the sender.
-</ResponseField>
+```bash cURL
+curl https://api.gliiv.com/v1/api/senders/6650f1c2a9e4b7d3c1a2b3c4 \
+  -H "x-api-key: $GLIIV_API_KEY"
+```
 
-<ResponseField name="name" type="string">
-  The alphanumeric label or short code.
-</ResponseField>
+```javascript Node.js
+const senderId = "6650f1c2a9e4b7d3c1a2b3c4";
 
-<ResponseField name="balance" type="number">
-  The specific credit balance allocated to this sender.
-</ResponseField>
+const response = await fetch(`https://api.gliiv.com/v1/api/senders/${senderId}`, {
+  headers: { "x-api-key": process.env.GLIIV_API_KEY },
+});
 
-<ResponseField name="user" type="object">
-  Information about the owner of the sender identity.
+console.log(response.status, await response.json());
+```
 
-  <Expandable title="User Details">
-    <ResponseField name="name" type="string">
-      The name of the user.
-    </ResponseField>
+```python Python
+import os
+import requests
 
-    <ResponseField name="id" type="string">
-      The unique identifier of the user.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+sender_id = "6650f1c2a9e4b7d3c1a2b3c4"
 
-<ResponseField name="createdAt" type="string">
-  The ISO 8601 timestamp of creation.
-</ResponseField>
+response = requests.get(
+    f"https://api.gliiv.com/v1/api/senders/{sender_id}",
+    headers={"x-api-key": os.environ["GLIIV_API_KEY"]},
+)
 
-<ResponseField name="updatedAt" type="string">
-  The ISO 8601 timestamp of the last update.
-</ResponseField>
+print(response.status_code, response.json())
+```
+
+</RequestExample>
 
 <ResponseExample>
 
 ```json 200
 {
-    "id": "<string>",
-    "name": "<string>",
-    "balance": "<number>",
-    "user": {
-        "name": "<string>",
-        "id": "<string>"
-    },
-    "createdAt": "<string>",
-    "updatedAt": "<string>"
+  "id": "6650f1c2a9e4b7d3c1a2b3c4",
+  "name": "GLIIV",
+  "balance": 1250,
+  "user": {
+    "name": "Gliiv Admin",
+    "id": "6650e8b1f2c3d4a5b6c7d8e9"
+  },
+  "createdAt": "2026-11-09T08:15:00.000Z",
+  "updatedAt": "2026-11-14T13:42:10.000Z"
 }
 ```
 
 ```json 400
 {
-    "message": "Invalid input provided",
-    "validationErrors": {
-        "senderId": "Please provide a valid sender ID"
-    },
-    "status": 400
+  "message": "Invalid input provided",
+  "validationErrors": {
+    "senderId": "Please provide a valid sender ID"
+  },
+  "status": 400
 }
 ```
 
@@ -100,11 +97,72 @@ This endpoint returns the full details of a single sender identity, including it
 }
 ```
 
+```json 429
+{
+  "message": "Too many requests",
+  "status": 429
+}
+```
+
 ```json 500
 {
-    "message": "Internal server error",
-    "status": 500
+  "message": "Internal server error",
+  "status": 500
 }
 ```
 
 </ResponseExample>
+
+## Response
+
+<ResponseField name="id" type="string">
+  The Sender's unique ID. Use it as `senderId` when sending messages.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The name recipients see as the message source, for example `GLIIV`.
+</ResponseField>
+
+<ResponseField name="balance" type="number">
+  The Sender's credit balance. One SMS to one recipient costs 1 credit.
+</ResponseField>
+
+<ResponseField name="user" type="object">
+  The account that owns the Sender, shown as **Owner** in the dashboard.
+
+  <Expandable title="properties">
+    <ResponseField name="name" type="string">
+      The owner's name.
+    </ResponseField>
+
+    <ResponseField name="id" type="string">
+      The owner's unique ID.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  When the Sender was created.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  When the Sender was last changed, for example after a balance update.
+</ResponseField>
+
+## Dates and times
+
+`createdAt` and `updatedAt` are in **UTC**, in ISO 8601 format with a `Z` at the end. The dashboard shows the same moments in Rwanda time (UTC+02:00), so `2026-11-09T08:15:00.000Z` appears there as **9 Nov 2026, 10:15**.
+
+<Tip>
+  Before sending a large batch, check `balance` against what the batch will cost: **number of phone numbers × SMS per message**. That way you know the Sender has enough credits before you start.
+</Tip>
+
+## Errors
+
+| Status | Meaning | What to do |
+| :-- | :-- | :-- |
+| `400` | `senderId` isn't a valid ID format. | Check that you copied the full ID, not the Sender's name. |
+| `401` | The API key is missing, invalid, expired, rotated or deleted. | Check the `x-api-key` header and the key in **Settings → API Keys**. |
+| `404` | No Sender with this ID exists on your account. | Copy the ID again from **⋯ → View details**, or get it from List senders. |
+| `429` | You've sent more than 60 requests in a minute with this key. | Wait the number of seconds in the `Retry-After` header, then try again. |
+| `500` | Something went wrong on Gliiv's side. | Wait a moment and try again. If it keeps happening, contact [hello@gliiv.com](mailto:hello@gliiv.com). |

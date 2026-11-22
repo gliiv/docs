@@ -1,0 +1,68 @@
+---
+title: "Rate limits"
+description: "How many requests you can make to the Gliiv API, how to read the rate limit headers, and what to do when you hit the limit."
+og:title: "Gliiv API Rate Limits: Request Limits, Headers and Retry-After"
+keywords:
+  - "Gliiv API rate limits"
+  - "SMS API rate limit"
+  - "429 Too Many Requests"
+  - "Retry-After header"
+---
+
+Rate limits keep the API fast and reliable for everyone by stopping any single integration from flooding the sending queue.
+
+## The limit
+
+| Limit | Applies to |
+| :-- | :-- |
+| **100 requests per minute** | Each API key, across all endpoints |
+
+That's an average of about 1–2 requests per second. Every request counts once, whether it sends to 1 phone number or 20.
+
+Most integrations send one message per request, such as a one-time password or an alert, so for them the limit works out to about **100 messages per minute**. If you send the same message to several people, putting up to 20 numbers in one request lets you reach more people within the same limit.
+
+## Rate limit headers
+
+Every response includes headers that show where you stand, so you can slow down before you hit the limit:
+
+| Header | Description |
+| :-- | :-- |
+| `RateLimit-Limit` | The number of requests allowed per window, for example `100`. |
+| `RateLimit-Remaining` | How many requests you have left in the current window. |
+| `RateLimit-Reset` | The number of seconds until the window resets and your full limit is restored. |
+| `RateLimit-Policy` | The limit and the window length in seconds. `100;w=60` means 100 requests per 60 seconds. |
+
+The same information is also sent in `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` for older HTTP clients. You only need to read one set.
+
+```text Example response headers
+RateLimit-Policy: 100;w=60
+RateLimit-Limit: 100
+RateLimit-Remaining: 42
+RateLimit-Reset: 18
+```
+
+## When you hit the limit
+
+Once you've used all your requests for the window, the API responds with `429 Too Many Requests` until the window resets:
+
+```json 429 Too Many Requests
+{
+  "message": "Too many requests",
+  "status": 429
+}
+```
+
+The response includes a `Retry-After` header with the number of seconds to wait:
+
+```text
+Retry-After: 18
+```
+
+Wait that many seconds, then send the request again. Requests that get a `429` aren't processed, so no messages are sent and no credits are used.
+
+## Staying under the limit
+
+- **Watch `RateLimit-Remaining`.** When it gets close to `0`, pause until `RateLimit-Reset` seconds have passed.
+- **Queue messages in busy moments.** If your app can produce bursts, for example many sign-ups at once, send through a queue that releases one or two requests per second instead of all at once.
+- **Combine when you can.** If several people need the same message at the same time, send it in one request with up to 20 numbers.
+- \*\*Don't
