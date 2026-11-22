@@ -31,6 +31,7 @@
         "groups": [
           {
             "group": "Getting Started",
+            "root": "introduction",
             "pages": [
               "introduction",
               "quickstart"
