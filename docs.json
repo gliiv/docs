@@ -7,8 +7,8 @@
   },
   "colors": {
     "primary": "#415a77",
-    "light": "#415a77",
-    "dark": "#647991"
+    "light": "#647991",
+    "dark": "#415a77"
   },
   "favicon": "/favicon.ico",
   "appearance": {
@@ -21,7 +21,7 @@
     "library": "lucide"
   },
   "background": {
-    "decoration": "gradient"
+    "decoration": "windows"
   },
   "thumbnails": { "appearance": "light", "fonts": { "family": "Nunito Sans" } },
   "navigation": {
@@ -57,41 +57,24 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@gliiv.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "App",
-      "href": "https://www.gliiv.com/app/auth/signin"
-    }
-  },
   "contextual": {
     "options": [
-      "copy",
-      "view",
-      "chatgpt",
       "claude",
-      "perplexity",
-      "mcp",
+      "chatgpt",
       "cursor",
-      "vscode"
+      "copy",
+      "view"
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/gliiv",
-      "linkedin": "https://linkedin.com/company/gliiv"
+      "website": "https://www.gliiv.com"
     }
-  },
-  "interaction": {
-    "drilldown": false
   },
   "seo": {
     "indexing": "all"
+  },
+  "variables": {
+    "api-url": "https://api.gliiv.com/v1"
   }
 }
