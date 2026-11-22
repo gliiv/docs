@@ -1,20 +1,21 @@
 ---
+
 title: "Send SMS"
-api: "POST https://api.gliiv.com/v1/messages/send"
+api: "POST [https://api.gliiv.com/v1/messages/send](https://api.gliiv.com/v1/messages/send)"
 description: "Send high-priority single or bulk messages via the Gliiv gateway."
 ---
 
-The `/send` endpoint allows you to programmatically dispatch messages to Rwandan mobile subscribers. 
+The `/send` endpoint allows you to programmatically dispatch messages to your recipients. All requests are processed through our high-speed gateway to ensure rapid delivery.
 
 <Note>
-  **Requirement:** Before using this endpoint, you must have at least one approved **Sender ID** assigned to your account by the Gliiv administration team.
+  **Requirement:** Before using this endpoint, you must have at least one **Sender** assigned to your account.
 </Note>
 
 ### Body Parameters
 
 <ParamField body="apiPhoneNumbers" type="string[]" required>
-  An array of recipient phone numbers.
-  * **Supported Formats:** Specifically supports Rwandan numbers in E.164 (`+250...`), international (`250...`), or local (`07...` / `7...`) formats.
+  An array of recipient phone numbers. 
+  * **Supported Formats:** `+250...`, `250...`, `07...`, or `7...`
   * **Limit:** Maximum of **20 numbers** per individual API request.
 </ParamField>
 
@@ -25,12 +26,11 @@ The `/send` endpoint allows you to programmatically dispatch messages to Rwandan
 </ParamField>
 
 <ParamField body="senderId" type="string" required>
-  The unique ID of your approved Sender identity.
+  The unique ID of your assigned **Sender**.
   
-  **How to obtain:**
-  1. Go to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
-  2. Click to preview the details of the specific sender you wish to use.
-  3. Copy the **Sender ID** using the provided copy button.
+  **How to obtain:** 1. Head to the [Senders Tab](https://www.gliiv.com/app/alpha/senders).
+  2. Click to preview the details of the specific Sender you wish to use.
+  3. Copy the ID using the provided copy button.
 </ParamField>
 
 ### Response Schema
