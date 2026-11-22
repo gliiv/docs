@@ -12,26 +12,28 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 
 ### Headers
 
-<ParamField header="X-API-Key" type="string" placeholder="gliiv_xxxxxxxxxxxxxxxx" required>
+<ParamField header="X-API-Key" type="string" required placeholder="gliiv_xxxxxxxxxxxxxxxx">
   Your secret API key used to authenticate the request.
 </ParamField>
 
 ### Body Parameters
 
 <ParamField body="phoneNumbers" type="string[]" required>
-  An array of recipient phone numbers. 
-  * **Supported Formats:** `+250...`, `250...`, `07...`, or `7...`
-  * **Limit:** Maximum of **20 numbers** per individual API request.
+  An array of recipient phone numbers.
+
+  - **Supported Formats:** `+250...`, `250...`, `07...`, or `7...`
+  - **Limit:** Maximum of **20 numbers** per individual API request.
 </ParamField>
 
 <ParamField body="message" type="string" required>
   The text content of your SMS.
-  * **Billing:** Charged in **160-character segments**.
-  * **Maximum:** 800 characters total.
+
+  - **Billing:** Charged in **160-character segments**.
+  - **Maximum:** 800 characters total.
 </ParamField>
 
 <ParamField body="senderId" type="string" required>
-  The unique ID of your authorized **Sender**. Retrieve this from the [List All Senders](/api-reference/list-all-senders) endpoint.
+  The unique ID of your authorized **Sender**. Retrieve this from the [List All Senders](/list-all-senders) endpoint.
 </ParamField>
 
 ### Response Body
@@ -46,13 +48,16 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
 
 <ResponseField name="validationErrors" type="object">
   **Optional.** Returned only on a **400 Bad Request**. Contains field-specific error messages.
+
   <Expandable title="Validation Error Details">
     <ResponseField name="phoneNumbers" type="string">
       Error detail for the phone numbers array.
     </ResponseField>
+
     <ResponseField name="message" type="string">
       Error detail for the message content.
     </ResponseField>
+
     <ResponseField name="senderId" type="string">
       Error detail for the sender identification.
     </ResponseField>
@@ -66,7 +71,6 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
     "message": "Messages are being sent",
     "status": 200
 }
-
 ```
 
 ```json 400
@@ -79,7 +83,6 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
     },
     "status": 400
 }
-
 ```
 
 ```json 401
@@ -87,7 +90,6 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
     "message": "Authentication required",
     "status": 401
 }
-
 ```
 
 ```json 404
@@ -95,7 +97,6 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
     "message": "Sender not found",
     "status": 404
 }
-
 ```
 
 ```json 500
@@ -103,7 +104,6 @@ The `/send` endpoint allows you to programmatically dispatch messages to your re
     "message": "Internal server error",
     "status": 500
 }
-
 ```
 
 </ResponseExample>
