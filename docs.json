@@ -15,8 +15,6 @@
   "appearance": {
     "default": "light"
   },
-  "background": {
-  },
   "footer": {
     "socials": {
       "website": "https://www.gliiv.com"
@@ -89,6 +87,12 @@
               {
                 "group": "Campaign Management",
                 "pages": ["create-campaign"]
+              },
+              {
+                "group": "Updates",
+                "pages": [
+                  "changelog"
+                ]
               }
             ]
           },
